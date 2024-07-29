@@ -27,11 +27,13 @@ public class BaseClass   {
         System.setProperty("Webdriver.chrome.driver",readConfig.getChromePath());
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+       // driver.manage().window().maximize();
 
     }
 
     @AfterClass
-    public void tearDown(){
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(8000);
         driver.quit();
     }
 

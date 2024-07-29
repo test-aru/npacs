@@ -14,7 +14,7 @@ public class LoginTest_TC1 extends BaseClass{
         lp.setPassword(password);
         lp.clickSubmit();
 
-        if(driver.getTitle().equals(" Guru99 Bank Manager HomePage "))
+        if(driver.getTitle().equals(" RIS | Front Office "))
         {
             Assert.assertTrue(true);
         }
