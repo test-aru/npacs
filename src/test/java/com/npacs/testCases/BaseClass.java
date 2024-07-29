@@ -12,8 +12,10 @@ public class BaseClass   {
 
     ReadConfig readConfig = new ReadConfig();
     public String baseURL=readConfig.getApplicationURL();
-    public String username=readConfig.getUsername();
-    public String password=readConfig.getPassword();
+    public String adminUsername=readConfig.adminUname();
+    public String adminPassword=readConfig.adminPwd();
+    public String radVijayUsername= readConfig.radVijayUname();
+    public String radVijayPassword= readConfig.radVijayPwd();
     public static WebDriver driver;
 
     // public String baseURL="https://demo.guru99.com/V3/index.php";

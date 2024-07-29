@@ -21,26 +21,30 @@ public class ReadConfig {
         }
     }
 
+
+
     public String getApplicationURL(){
-        String url=pro.getProperty("baseURL");
-        return url;
+        return pro.getProperty("baseURL");
     }
 
-    public String getUsername(){
-        String username=pro.getProperty("username");
-        return username;
+    public String adminUname(){
+        return pro.getProperty("adminUsername");
     }
 
-    public String getPassword(){
-        String password=pro.getProperty("password");
-        return password;
+    public String adminPwd(){
+        return pro.getProperty("adminPassword");
+    }
+
+    public String radVijayPwd(){
+        return pro.getProperty("radVijayPassword");
+    }
+
+    public String radVijayUname(){
+        return pro.getProperty("radVijayUsername");
     }
 
     public String getChromePath(){
-        String chromepath=pro.getProperty("chromepath");
-        return chromepath;
+        return pro.getProperty("chromepath");
     }
-
-
 
 }
