@@ -14,9 +14,13 @@ public class LoginPage {
         PageFactory.initElements(rdriver, this);
     }
 
-    @FindBy(name = "uid") WebElement txtusername;
-    @FindBy(name="password") WebElement txtpassword;
-    @FindBy(name="btnLogin") WebElement submit;
+    @FindBy(id ="username") WebElement txtusername;
+    @FindBy(id ="password") WebElement txtpassword;
+    @FindBy(id ="kc-login") WebElement submit;
+
+//    @FindBy(name ="uid") WebElement txtusername;
+//    @FindBy(name="password") WebElement txtpassword;
+//    @FindBy(name="btnLogin") WebElement submit;
 
     public void setUsername(String uname){
         txtusername.sendKeys(uname);
