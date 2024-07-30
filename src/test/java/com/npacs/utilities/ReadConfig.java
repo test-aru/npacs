@@ -21,7 +21,7 @@ public class ReadConfig {
         }
     }
 
-
+    public String getBrowser(){return pro.getProperty("browser");}
 
     public String getApplicationURL(){
         return pro.getProperty("baseURL");

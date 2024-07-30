@@ -10,8 +10,8 @@ public class LoginPage {
 
     WebDriver driver;
 
-    public LoginPage(WebDriver driver){
-        this.driver=driver;
+    public LoginPage(WebDriver ldriver){
+        this.driver=ldriver;
         PageFactory.initElements(driver,this);
     }
 
@@ -19,9 +19,11 @@ public class LoginPage {
     @FindBy(xpath="//*[@id=\"password\"]") WebElement Password;
     @FindBy(xpath="//*[@id=\"kc-login\"]") WebElement Submit;
 
-//    @FindBy(name ="uid") WebElement txtusername;
-//    @FindBy(name="password") WebElement txtpassword;
-//    @FindBy(name="btnLogin") WebElement submit;
+    public void loginApplication(String username,String password){
+        Username.sendKeys(username);
+        Password.sendKeys(password);
+        Submit.click();
+    }
 
     public void setUsername(String username){
         this.Username.sendKeys(username);
