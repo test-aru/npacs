@@ -25,16 +25,16 @@ public class LoginPage {
         Submit.click();
     }
 
-    public void setUsername(String username){
-        this.Username.sendKeys(username);
+    public void adminLogin(){
+        loginApplication("raster","raster");
     }
 
-    public void setPassword(String password){
-        this.Password.sendKeys(password);
+    public void radVijayLogin(){
+        loginApplication("user.0","user@0");
     }
 
-    public void clickSubmit(){
-        Submit.click();
+    public void gatekeeperLogin(){
+        loginApplication("user.201","user201");
     }
 
 }
