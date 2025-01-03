@@ -34,13 +34,10 @@ public class BrowserFactory {
             System.out.println("We do not support this browser ");
         }
 
-
         driver.manage().window().maximize();
         driver.get(appUrl);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
         return driver;
-
     }
 
     public static void quitBrowser(WebDriver driver)

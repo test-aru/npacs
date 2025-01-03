@@ -21,26 +21,11 @@ public class ReadConfig {
         }
     }
 
+    //Getter methods for retrieve properties from config.properties file
     public String getBrowser(){return pro.getProperty("browser");}
 
     public String getApplicationURL(){
         return pro.getProperty("baseURL");
-    }
-
-    public String adminUname(){
-        return pro.getProperty("adminUsername");
-    }
-
-    public String adminPwd(){
-        return pro.getProperty("adminPassword");
-    }
-
-    public String radVijayPwd(){
-        return pro.getProperty("radVijayPassword");
-    }
-
-    public String radVijayUname(){
-        return pro.getProperty("radVijayUsername");
     }
 
     public String getChromePath(){
