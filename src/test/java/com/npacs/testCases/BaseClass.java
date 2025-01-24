@@ -15,10 +15,10 @@ public class BaseClass   {
         driver= BrowserFactory.startApplication(driver,config.getBrowser(),config.getApplicationURL());
     }
 
-    @AfterMethod
-    public void tearDown() throws InterruptedException{
-        BrowserFactory.quitBrowser(driver);
-    }
+//    @AfterMethod
+//    public void tearDown() throws InterruptedException{
+//        BrowserFactory.quitBrowser(driver);
+//    }
 
 
 }

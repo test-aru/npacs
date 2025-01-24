@@ -23,7 +23,7 @@ public class LoginTestCases extends BaseClass {
     }
 
     @Test (priority=1)
-    public void loginWithInValidUsernameAndValidPassword() throws InterruptedException {
+    public void loginWithInValidUsernameAndValidPassword(){
         LoginAssertions la=new LoginAssertions(driver);
         la.navigatedToLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
