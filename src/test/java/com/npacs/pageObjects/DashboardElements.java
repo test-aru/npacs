@@ -15,34 +15,17 @@ public class DashboardElements {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath = "//div[@class=\"ng-tns-c278-6 ng-star-inserted active\"]//a[contains(text(),'Reporting')]")
-    WebElement reportingMenu;
-    @FindBy(xpath = "//div[@class=\"ng-tns-c278-6 ng-star-inserted active\"]//a[contains(text(),'Recently Signed')]")
-    WebElement recentlySignedMenu;
-    @FindBy(xpath = "//div[@class=\"ng-tns-c278-6 ng-star-inserted active\"]//a[contains(text(),'Archived Studies')]")
-    WebElement archivedStudiesMenu;
 
 
     @FindBy(xpath = "//*[contains(text(),\"Worklist Archive\")]")
     WebElement worklistArchiveLink;
 
 
-    public boolean validateReportingMenu() {
-        String expectedMenu = " Reporting ";
-        String actualMenu = reportingMenu.getText();
-        boolean isClickedMenu = actualMenu.contains(expectedMenu);
-        if (isClickedMenu) {
-            System.out.println("Current screen is Worklist : " + actualMenu);
-        } else {
-            System.out.println("Current screen is not worklist. Landed screen is : " + actualMenu);
-        }
-        return isClickedMenu;
-    }
+
 
 
     public void clickOnWorklistArchive() {
         worklistArchiveLink.click();
-        validateReportingMenu();
 
     }
 
