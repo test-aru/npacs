@@ -16,7 +16,7 @@ public class RadWorklistStudies extends BaseClass {
         DashboardElements db=new DashboardElements(driver);
         db.clickOnWorklistArchive();
         RadWorklistElements rw=new RadWorklistElements(driver);
-        rw.openWorklistMenu();
+        //rw.openWorklistMenu();
         rw.validateReportingMenu();
 
 
