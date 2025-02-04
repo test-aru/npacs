@@ -20,7 +20,7 @@ public class RadWorklistStudies extends BaseClass {
         //rw.validateReportingMenu();
         //rw.clickOnThisMonth();
         rw.clickOnLast15Days();
-        rw.searchPatient("680172");
+        rw.searchPatient("584511");
         Thread.sleep(1000);
         rw.findTotalNosRow();
         rw.checkStatusAndNavigate();

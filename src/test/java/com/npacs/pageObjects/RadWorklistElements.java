@@ -38,6 +38,13 @@ public class RadWorklistElements {
 
     @FindBy(xpath = "//tbody[@role=\"rowgroup\"]/tr") WebElement StudyRow;
 
+    @FindBy(xpath = "/html/body/app-root/app-main-layout/app-side-nav/mat-sidenav-container/mat-sidenav-content/app-container/div/div/app-radiologist-worklist/div/div/div/div/div[2]/app-report-table/div/div[2]/div/div/div[1]/table/tbody/tr[1]/td[7]/span[2]/span/img") WebElement AssignIcon;
+
+    @FindBy(xpath = "//button[@role='menuitem']/span[contains(text(),'Assign To Me')]") WebElement AssignToMeButton;
+    @FindBy(xpath = "//button[@role='menuitem']/span[contains(text(),'Select Ass')]") WebElement SelectAssignToMeButton;
+
+
+
     public boolean validateReportingMenu() {
         String expectedMenu = " Reporting ";
         String actualMenu = reportingMenu.getText();
@@ -112,12 +119,14 @@ public class RadWorklistElements {
 
         WebElement cell = colList.get(colIndex);
         String cellValue = cell.getAccessibleName();
-        if (!cellValue.equals("UNASSIGNED")) {
+        if (cellValue != null && !cellValue.equals("UNASSIGNED")) {
             System.out.println("Study status is " + cellValue+". Navigated to reporting screen.");
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             StudyRow.click();
         }else{
-            System.out.println("Study status is UNASSIGNED!");
+            System.out.println("Study status is " + cellValue);
+            Thread.sleep(2000);
+            assignStudyToMe();
         }
     }
     public void getStudyStatus(){
@@ -129,5 +138,11 @@ public class RadWorklistElements {
         System.out.println("Search for patient entered");
     }
 
+
+    public void assignStudyToMe(){
+        AssignIcon.click();
+        AssignToMeButton.click();
+        System.out.println("Assigned study clicked");
+    }
 
 }
