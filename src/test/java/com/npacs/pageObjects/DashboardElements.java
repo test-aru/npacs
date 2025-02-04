@@ -17,7 +17,7 @@ public class DashboardElements {
 
 
 
-    @FindBy(xpath = "//*[contains(text(),\"Worklist Archive\")]")
+    @FindBy(xpath = "/html/body/app-root/app-main-layout/app-side-nav/mat-sidenav-container/mat-sidenav-content/app-container/div/div/app-radiologist-dashboard/div/div[2]/div[1]/div[1]/div[1]/a[2]")
     WebElement worklistArchiveLink;
 
 
