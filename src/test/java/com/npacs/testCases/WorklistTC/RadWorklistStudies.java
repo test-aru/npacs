@@ -2,6 +2,7 @@ package com.npacs.testCases.WorklistTC;
 import com.npacs.assertions.LoginAssertions;
 import com.npacs.pageObjects.LoginPageElements;
 import com.npacs.pageObjects.DashboardElements;
+import com.npacs.pageObjects.ModularReportingElements;
 import com.npacs.pageObjects.RadWorklistElements;
 import com.npacs.testCases.BaseClass;
 import org.testng.annotations.Test;
@@ -24,7 +25,11 @@ public class RadWorklistStudies extends BaseClass {
         Thread.sleep(1000);
         rw.findTotalNosRow();
         rw.checkStatusAndNavigate();
-       // rw.getStudyStatus();
+        Thread.sleep(1000);
+        ModularReportingElements Re = new ModularReportingElements(driver);
+        Re.verifyPatientTab();
+        Re.selectTemplate();
+        Re.saveReport();
 
     }
 

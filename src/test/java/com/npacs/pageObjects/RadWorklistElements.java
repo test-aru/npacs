@@ -41,8 +41,9 @@ public class RadWorklistElements {
     @FindBy(xpath = "/html/body/app-root/app-main-layout/app-side-nav/mat-sidenav-container/mat-sidenav-content/app-container/div/div/app-radiologist-worklist/div/div/div/div/div[2]/app-report-table/div/div[2]/div/div/div[1]/table/tbody/tr[1]/td[7]/span[2]/span/img") WebElement AssignIcon;
 
     @FindBy(xpath = "//button[@role='menuitem']/span[contains(text(),'Assign To Me')]") WebElement AssignToMeButton;
-    @FindBy(xpath = "//button[@role='menuitem']/span[contains(text(),'Select Ass')]") WebElement SelectAssignToMeButton;
+    @FindBy(xpath = "//button[@role='menuitem']/span[contains(text(),'Select Ass')]") WebElement SelectAssigneeButton;
 
+    @FindBy(xpath = "//td//span[@class=\"mat-tooltip-trigger d-ib mt-5 fs-12 font-bold grey-clr ng-tns-c334-7 ng-star-inserted\"]") WebElement RadiologistColumn;
 
 
     public boolean validateReportingMenu() {
@@ -117,10 +118,11 @@ public class RadWorklistElements {
             System.out.println("Column index " + colIndex + " is out of bounds for the row " + rowIndex);
         }
 
+        // navigate to study report if status is not UNASSIGNED
         WebElement cell = colList.get(colIndex);
         String cellValue = cell.getAccessibleName();
-        if (cellValue != null && !cellValue.equals("UNASSIGNED")) {
-            System.out.println("Study status is " + cellValue+". Navigated to reporting screen.");
+        if (cellValue != null && !cellValue.equals("UNASSIGNED ")) {
+            System.out.println("Study status is " + cellValue+"and Navigated to reporting screen.");
             Thread.sleep(2000);
             StudyRow.click();
         }else{
@@ -139,10 +141,26 @@ public class RadWorklistElements {
     }
 
 
-    public void assignStudyToMe(){
+    public void assignStudyToMe() throws InterruptedException {
         AssignIcon.click();
+        Thread.sleep(1000);
         AssignToMeButton.click();
-        System.out.println("Assigned study clicked");
+        Thread.sleep(2500);
+        WebElement tableRow = driver.findElement(By.xpath("//tbody[@role=\"rowgroup\"]/tr"));
+        List<WebElement> colList = tableRow.findElements(By.tagName("td"));
+
+        int rowIndex = 1;
+        int colIndex = 6;
+        if(colIndex < colList.size()){
+            WebElement cell = colList.get(colIndex);
+            String cellValue = cell.getAccessibleName();
+            System.out.println("Study Assigned to Radiologist " + cellValue);
+        } else {
+            System.out.println("Column index " + colIndex + " is out of bounds for the row " + rowIndex);
+        }
     }
+
+
+
 
 }
