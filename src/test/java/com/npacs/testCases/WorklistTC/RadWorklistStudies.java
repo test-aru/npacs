@@ -7,6 +7,8 @@ import com.npacs.pageObjects.RadWorklistElements;
 import com.npacs.testCases.BaseClass;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 public class RadWorklistStudies extends BaseClass {
 
 
@@ -21,23 +23,31 @@ public class RadWorklistStudies extends BaseClass {
         //rw.validateReportingMenu();
         //rw.clickOnThisMonth();
         rw.clickOnLast15Days();
-        rw.searchPatient("584511");
-        Thread.sleep(1000);
+        rw.searchPatient("681132");
+        Thread.sleep(2000);
         rw.findTotalNosRow();
         rw.checkStatusAndNavigate();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         ModularReportingElements Re = new ModularReportingElements(driver);
         Re.verifyPatientTab();
         Re.selectTemplate();
+        Thread.sleep(2000);
         Re.saveReport();
+        Re.DraftReport();
+        Re.PrintPreview();
+        Re.SignReport();
+        Re.PrintPreview();
 
     }
 
-//    @Test (priority = 1)
-//    public void searchPatients()  {
+//    public void NavigateReportingAndVerifyPatient() throws InterruptedException {
 //        RadWorklistElements rw=new RadWorklistElements(driver);
-//
+//        rw.checkStatusAndNavigate();
+//        Thread.sleep(2000);
+//        ModularReportingElements Re = new ModularReportingElements(driver);
+//        Re.verifyPatientTab();
 //    }
+
 
 
 

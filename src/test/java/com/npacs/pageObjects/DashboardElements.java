@@ -24,7 +24,8 @@ public class DashboardElements {
 
 
 
-    public void clickOnWorklistArchive() {
+    public void clickOnWorklistArchive() throws InterruptedException {
+        Thread.sleep(2000);
         worklistArchiveLink.click();
 
     }

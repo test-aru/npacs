@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.time.Duration;
 import java.util.List;
 
 public class RadWorklistElements {
@@ -70,7 +71,7 @@ public class RadWorklistElements {
     public void clickOnThisMonth() throws InterruptedException {
         WLdatepicker.click();
         System.out.println("clicked on date picker");
-        Thread.sleep(2000);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         ThisMonth.click();
         System.out.println("This month is clicked");
     }
@@ -127,25 +128,28 @@ public class RadWorklistElements {
             StudyRow.click();
         }else{
             System.out.println("Study status is " + cellValue);
-            Thread.sleep(2000);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
             assignStudyToMe();
+            Thread.sleep(2000);
+            StudyRow.click();
         }
     }
     public void getStudyStatus(){
         System.out.println(studyStatus.getText());
     }
 
-    public void searchPatient(String patientID){
+    public void searchPatient(String patientID) throws InterruptedException {
         globalSearch.sendKeys(patientID);
+        Thread.sleep(2000);
         System.out.println("Search for patient entered");
     }
 
 
     public void assignStudyToMe() throws InterruptedException {
         AssignIcon.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         AssignToMeButton.click();
-        Thread.sleep(2500);
+        Thread.sleep(2000);
         WebElement tableRow = driver.findElement(By.xpath("//tbody[@role=\"rowgroup\"]/tr"));
         List<WebElement> colList = tableRow.findElements(By.tagName("td"));
 
@@ -154,6 +158,7 @@ public class RadWorklistElements {
         if(colIndex < colList.size()){
             WebElement cell = colList.get(colIndex);
             String cellValue = cell.getAccessibleName();
+            Thread.sleep(2000);
             System.out.println("Study Assigned to Radiologist " + cellValue);
         } else {
             System.out.println("Column index " + colIndex + " is out of bounds for the row " + rowIndex);
