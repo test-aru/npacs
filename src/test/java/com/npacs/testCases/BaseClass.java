@@ -10,12 +10,12 @@ public class BaseClass   {
     public WebDriver driver;
     public ReadConfig config = new ReadConfig();
 
-    @BeforeMethod
+    @BeforeClass
     public void setup(){
         driver= BrowserFactory.startApplication(driver,config.getBrowser(),config.getApplicationURL());
     }
 
-//    @AfterMethod
+//    @AfterClass
 //    public void tearDown() throws InterruptedException{
 //        BrowserFactory.quitBrowser(driver);
 //    }

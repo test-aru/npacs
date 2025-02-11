@@ -38,7 +38,7 @@ public class ModularReportingElements {
     @FindBy (xpath = "//*[@role=\"dialog\"]/app-confirm-box/div/div[2]") WebElement EditConfirmPopup;
     @FindBy (xpath = "//*[@role=\"dialog\"]/app-confirm-box/div/div[3]/button[contains(text(),' No ')]") WebElement NoForEdit;
     @FindBy (xpath = "//*[@role=\"dialog\"]/app-confirm-box/div/div[3]/button[contains(text(),' Yes ')]") WebElement YesForEdit;
-
+    //@FindBy (xpath = "//*[@href=\"/radiologist-worklist/my-worklist\"]") WebElement BackToWorklistBreadcrumb;
 
 
     public void verifyPatientTab(){
@@ -143,6 +143,12 @@ public class ModularReportingElements {
           RadWorklistElements RW = new RadWorklistElements(driver);
           RW.clickOnLast15Days();
           RW.searchPatient("");
+    }
+
+    public void backToWorklist() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.navigate().back();
+        System.out.println("Clicked on Back to Worklist breadcrumb");
     }
 
 

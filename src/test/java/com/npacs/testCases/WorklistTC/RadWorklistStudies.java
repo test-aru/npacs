@@ -19,11 +19,8 @@ public class RadWorklistStudies extends BaseClass {
         DashboardElements db=new DashboardElements(driver);
         db.clickOnWorklistArchive();
         RadWorklistElements rw=new RadWorklistElements(driver);
-        //rw.openWorklistMenu();
-        //rw.validateReportingMenu();
-        //rw.clickOnThisMonth();
         rw.clickOnLast15Days();
-        rw.searchPatient("681132");
+        rw.searchPatient("681128");
         Thread.sleep(2000);
         rw.findTotalNosRow();
         rw.checkStatusAndNavigate();
@@ -34,28 +31,20 @@ public class RadWorklistStudies extends BaseClass {
         Thread.sleep(2000);
         Re.saveReport();
         Re.DraftReport();
-        Re.PrintPreview();
         Re.SignReport();
         Re.PrintPreview();
+        Re.EditTheReport();
+        Re.backToWorklist();
+        rw.clickOnLast15Days();
+        rw.searchPatient("681128");
+        rw.getResultStatus();
+        Re.SignReport();
+        Re.backToWorklist();
+        rw.clickOnLast15Days();
+        rw.searchPatient("681128");
+        rw.getResultStatus();
 
     }
-
-//    public void NavigateReportingAndVerifyPatient() throws InterruptedException {
-//        RadWorklistElements rw=new RadWorklistElements(driver);
-//        rw.checkStatusAndNavigate();
-//        Thread.sleep(2000);
-//        ModularReportingElements Re = new ModularReportingElements(driver);
-//        Re.verifyPatientTab();
-//    }
-
-
-
-
-
-
-
-
-
 
 
 

@@ -77,6 +77,7 @@ public class RadWorklistElements {
     }
 
     public void clickOnLast15Days() throws InterruptedException {
+        Thread.sleep(2000);
         WLdatepicker.click();
         System.out.println("clicked on date picker");
         Thread.sleep(2000);
@@ -158,13 +159,28 @@ public class RadWorklistElements {
         if(colIndex < colList.size()){
             WebElement cell = colList.get(colIndex);
             String cellValue = cell.getAccessibleName();
-            Thread.sleep(2000);
+            Thread.sleep(3000);
             System.out.println("Study Assigned to Radiologist " + cellValue);
         } else {
             System.out.println("Column index " + colIndex + " is out of bounds for the row " + rowIndex);
         }
     }
 
+    public void getResultStatus() throws InterruptedException {
+        WebElement tableRow = driver.findElement(By.xpath("//tbody[@role=\"rowgroup\"]/tr"));
+        List<WebElement> colList = tableRow.findElements(By.tagName("td"));
+        int rowIndex = 1;
+        int colIndex = 7;
+        if(colIndex < colList.size()){
+            WebElement cell = colList.get(colIndex);
+            String cellValue = cell.getAccessibleName();
+            Thread.sleep(2000);
+            System.out.println("Result status is " + cellValue);
+            StudyRow.click();
+        } else {
+            System.out.println("Column index " + colIndex + " is out of bounds for the row " + rowIndex);
+        }
+    }
 
 
 
