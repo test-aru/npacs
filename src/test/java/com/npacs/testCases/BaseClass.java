@@ -11,7 +11,7 @@ public class BaseClass   {
     public ReadConfig config = new ReadConfig();
 
     @BeforeClass
-    public void setup(){
+    public void setup() throws InterruptedException {
         driver= BrowserFactory.startApplication(driver,config.getBrowser(),config.getApplicationURL());
     }
 

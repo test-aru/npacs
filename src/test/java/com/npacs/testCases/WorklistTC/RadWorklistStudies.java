@@ -20,7 +20,7 @@ public class RadWorklistStudies extends BaseClass {
         db.clickOnWorklistArchive();
         RadWorklistElements rw=new RadWorklistElements(driver);
         rw.clickOnLast15Days();
-        rw.searchPatient("681128");
+        rw.searchPatient("681451");
         Thread.sleep(2000);
         rw.findTotalNosRow();
         rw.checkStatusAndNavigate();
@@ -36,12 +36,12 @@ public class RadWorklistStudies extends BaseClass {
         Re.EditTheReport();
         Re.backToWorklist();
         rw.clickOnLast15Days();
-        rw.searchPatient("681128");
+        rw.searchPatient("681451");
         rw.getResultStatus();
         Re.SignReport();
         Re.backToWorklist();
         rw.clickOnLast15Days();
-        rw.searchPatient("681128");
+        rw.searchPatient("681451");
         rw.getResultStatus();
 
     }

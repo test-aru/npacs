@@ -8,6 +8,17 @@ import com.npacs.utilities.Screenshot;
 
 
 public class LoginTestCases extends BaseClass {
+    public void login() throws InterruptedException {
+        LoginAssertions la=new LoginAssertions(driver);
+        LoginPageElements lp=new LoginPageElements(driver);
+        la.navigatedToLoginScreen();
+//        String username = "raster";
+//        String password = "raster";
+        lp.loginApplication("raster","raster");
+        //Screenshot.takeScreenshot(driver);
+        la.navigatedToDashboardScreen();
+
+    }
 
     @Test(priority=0)
     public void loginWithValidUsernameAndPassword() throws InterruptedException {
