@@ -53,7 +53,7 @@ public class StudyCountsForAdmin extends BaseClass{
         //RW.getCountTotalFromPagination();
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
-        System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
+        System.out.println("-----This week study counts matched in both worklist and Dashboard!-----");
     }
 
     @Test (priority = 3)
@@ -71,7 +71,7 @@ public class StudyCountsForAdmin extends BaseClass{
         //RW.getCountTotalFromPagination();
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
-        System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
+        System.out.println("-----This Month study counts matched in both worklist and Dashboard!-----");
     }
 
     @Test (priority = 4)
@@ -89,7 +89,7 @@ public class StudyCountsForAdmin extends BaseClass{
         //RW.getCountTotalFromPagination();
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
-        System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
+        System.out.println("-----Last 15 days study counts matched in both worklist and Dashboard!-----");
     }
 
     @Test (priority = 5)
@@ -107,7 +107,7 @@ public class StudyCountsForAdmin extends BaseClass{
         //RW.getCountTotalFromPagination();
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
-        System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
+        System.out.println("-----Last 30 days study counts matched in both worklist and Dashboard!-----");
     }
 
     @Test (priority = 6)
@@ -125,7 +125,7 @@ public class StudyCountsForAdmin extends BaseClass{
         //RW.getCountTotalFromPagination();
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
-        System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
+        System.out.println("-----Last 3 days study counts matched in both worklist and Dashboard!-----");
     }
 
     @Test (priority = 7)
@@ -143,7 +143,7 @@ public class StudyCountsForAdmin extends BaseClass{
         //RW.getCountTotalFromPagination();
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
-        System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
+        System.out.println("-----Today study counts matched in both worklist and Dashboard!-----");
     }
 
     @Test (priority = 8)
@@ -161,7 +161,7 @@ public class StudyCountsForAdmin extends BaseClass{
         //RW.getCountTotalFromPagination();
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
-        System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
+        System.out.println("-----Today and Yesterday study counts matched in both worklist and Dashboard!-----");
     }
 
     @Test (priority = 9)
@@ -179,7 +179,7 @@ public class StudyCountsForAdmin extends BaseClass{
         //RW.getCountTotalFromPagination();
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
-        System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
+        System.out.println("-----Yesterday study counts matched in both worklist and Dashboard!-----");
     }
 
 

@@ -57,6 +57,7 @@ public class RadWorklistElements {
     @FindBy(xpath = "//*[contains(text(),'Apply')]") WebElement ApplyButton;
     @FindBy (name = "statusFilter") WebElement StatusFilter;
     @FindBy(xpath = "//div/div/div//*[@role=\"listbox\"]") WebElement AllStatuses;
+    @FindBy (xpath = "//mat-tree/mat-nested-tree-node[3]/div/a") WebElement ArchivedStudiesMenu;
 
 
 
@@ -386,6 +387,12 @@ public class RadWorklistElements {
                 break;
             }
         }
+    }
+
+    public void ClickOnArchivedStudies() throws InterruptedException {
+        Thread.sleep(500);
+        ArchivedStudiesMenu.click();
+        System.out.println("Archived studies menu clicked!");
     }
 
 }

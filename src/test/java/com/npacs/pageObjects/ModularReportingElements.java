@@ -1,5 +1,7 @@
 package com.npacs.pageObjects;
 
+import com.relevantcodes.extentreports.utils.Resources;
+import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -8,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class ModularReportingElements {
@@ -39,6 +42,11 @@ public class ModularReportingElements {
     @FindBy (xpath = "//*[@role=\"dialog\"]/app-confirm-box/div/div[3]/button[contains(text(),' No ')]") WebElement NoForEdit;
     @FindBy (xpath = "//*[@role=\"dialog\"]/app-confirm-box/div/div[3]/button[contains(text(),' Yes ')]") WebElement YesForEdit;
     //@FindBy (xpath = "//*[@href=\"/radiologist-worklist/my-worklist\"]") WebElement BackToWorklistBreadcrumb;
+    @FindBy (xpath = "/html/body/app-root/app-main-layout/app-side-nav/mat-sidenav-container/mat-sidenav-content/app-container/div/div/app-radiologist-worklist/div/div/div/div/div[2]/app-report-details/div/div[1]/div[1]/div[1]") WebElement CardViewList;
+    @FindBy (xpath = "//div/label/div[3]/span[3]") WebElement CardStatus;
+    @FindBy (xpath = "//div/label/div[2]/span[1]") WebElement CardPatientID;
+    @FindBy (xpath = "//*[@data-placeholder=\"Search\"]") WebElement CardSearch;
+    @FindBy (xpath = "//div[1]/label[@for=\"panel-0\"]") WebElement firstCardView;
 
 
     public void verifyPatientTab(){
@@ -149,6 +157,54 @@ public class ModularReportingElements {
         Thread.sleep(2000);
         driver.navigate().back();
         System.out.println("Clicked on Back to Worklist breadcrumb");
+    }
+
+    public String getCardStatus(WebElement card){
+        return card.findElement(By.xpath("//div/label/div[3]/span[3]")).getText().trim();
+//        WebElement cardStatusElement = card.findElement(By.xpath("//div/label/div[3]/span[3]"));
+//        String cardStatus = cardStatusElement.getText().trim();
+//        System.out.println("Card Status: '" + cardStatus + "'");
+//        return cardStatus;
+    }
+
+
+    public void getAllCardStudies() throws InterruptedException {
+            WebElement cardViewList = driver.findElement(By.xpath("/html/body/app-root/app-main-layout/app-side-nav/mat-sidenav-container/mat-sidenav-content/app-container/div/div/app-radiologist-worklist/div/div/div/div/div[2]/app-report-details/div/div[1]/div[1]/div[1]"));
+            List<WebElement> cardList = cardViewList.findElements(By.xpath("div"));
+            System.out.println("Total Card View List Studies: " + cardList.size());
+
+          for (int i=0; i < cardList.size(); i++) {
+              Thread.sleep(1000);
+              WebElement cardElement = cardList.get(i);
+              Thread.sleep(1000);
+              try{
+                  WebElement statusElement = cardElement.findElement(By.xpath("//div/label/div[3]"));
+                  String CardSTATUS = statusElement.getText().trim(); //trim whitespaces
+                  System.out.println("Checking card : " + (i + 1) + " , Status: '" + CardSTATUS + "'");
+                  Thread.sleep(1000);
+                  if (CardSTATUS.toUpperCase().contains("UNREAD")){
+                      System.out.println("Found UNREAD card at index " + i + ", performing actions.");
+//                       String PtID = CardPatientID.getText();
+//                       System.out.println("PtID");
+//                       Thread.sleep(1000);
+//                       CardSearch.sendKeys(PtID);
+//                       Thread.sleep(1000);
+//                       firstCardView.click();
+//                       CardSearch.clear();
+                  }else {
+                      System.out.println("Card " + (i + 1) + " is already read. Skipping.");
+                  }
+              }catch (NoSuchElementException e) {
+                  System.out.println("Status not found for card " + (i + 1) + ". Skipping to next card.");
+              }
+          }
+      //  for (WebElement element : cardList){
+//            System.out.println("Cards : " + element.getText());
+//            WebElement statusElement = element.findElement(By.xpath("//div/label/div[3]"));
+//            String CardSTATUS = statusElement.getText();
+//            System.out.println("Card Status: '" + CardSTATUS + "'");
+      //  }
+
     }
 
 

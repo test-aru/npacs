@@ -13,20 +13,21 @@ public class RadWorklistStudies extends BaseClass {
 
 
     @Test (priority = 0)
-    public void openRadWorklist() throws InterruptedException {
+    public void ValidateReporting() throws InterruptedException {
         LoginPageElements lp=new LoginPageElements(driver);
         lp.radVijayLogin();
         DashboardElements db=new DashboardElements(driver);
         db.clickOnWorklistArchive();
         RadWorklistElements rw=new RadWorklistElements(driver);
         rw.clickOnLast15Days();
-        rw.searchPatient("681451");
+        rw.searchPatient("683963");
         Thread.sleep(2000);
         rw.findTotalNosRow();
         rw.checkStatusAndNavigate();
         Thread.sleep(2000);
         ModularReportingElements Re = new ModularReportingElements(driver);
         Re.verifyPatientTab();
+//        Re.getAllCardStudies();
         Re.selectTemplate();
         Thread.sleep(2000);
         Re.saveReport();
@@ -36,12 +37,12 @@ public class RadWorklistStudies extends BaseClass {
         Re.EditTheReport();
         Re.backToWorklist();
         rw.clickOnLast15Days();
-        rw.searchPatient("681451");
+        rw.searchPatient("683963");
         rw.getResultStatus();
         Re.SignReport();
         Re.backToWorklist();
         rw.clickOnLast15Days();
-        rw.searchPatient("681451");
+        rw.searchPatient("683963");
         rw.getResultStatus();
 
     }
