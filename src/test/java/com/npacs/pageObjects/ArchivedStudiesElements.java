@@ -27,6 +27,8 @@ public class ArchivedStudiesElements {
     WebElement PatientNamesearch;
     @FindBy(xpath = "//*[@mattooltip=\"Search\"]")
     WebElement SearchIcon;
+    @FindBy(xpath = "//*[@mattooltip=\"Reset\"]")
+    WebElement ResetIcon;
     @FindBy(xpath = "//tr[1]/td[9]/button[2]/span/mat-icon")
     WebElement matIcon;
     @FindBy(xpath = "//div/button[3][contains(text(),'Update Patient / Study Info')]")
@@ -70,7 +72,10 @@ public class ArchivedStudiesElements {
         Thread.sleep(500);
     }
 
-
+    public void resetSearch() throws InterruptedException {
+        Thread.sleep(500);
+        ResetIcon.click();
+    }
 
     public void clickOnMatIcon() throws InterruptedException {
         Thread.sleep(500);
