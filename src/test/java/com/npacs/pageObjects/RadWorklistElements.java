@@ -1,12 +1,14 @@
 package com.npacs.pageObjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.util.NoSuchElementException;
 
 import java.time.Duration;
 import java.util.List;
@@ -58,6 +60,9 @@ public class RadWorklistElements {
     @FindBy (name = "statusFilter") WebElement StatusFilter;
     @FindBy(xpath = "//div/div/div//*[@role=\"listbox\"]") WebElement AllStatuses;
     @FindBy (xpath = "//mat-tree/mat-nested-tree-node[3]/div/a") WebElement ArchivedStudiesMenu;
+    @FindBy (xpath = "//*[@class=\"mt-30 critical-popup\"]") WebElement CriticalPopup;
+    @FindBy (xpath = "//*[contains(text(),' Okay, Continue ')]") WebElement ContinueButton;
+    @FindBy (xpath = "//tbody[1]/tr[1]/td[5]/span/span[2]") WebElement CriticalResultIcon;
 
 
 
@@ -203,17 +208,38 @@ public class RadWorklistElements {
         WebElement cell = colList.get(colIndex);
         String cellValue = cell.getAccessibleName();
         if (cellValue != null && !cellValue.equals("UNASSIGNED ")) {
-            System.out.println("Study status is " + cellValue+"and Navigated to reporting screen.");
             Thread.sleep(2000);
-            StudyRow.click();
+            System.out.println("Study status is " + cellValue+"and Navigated to reporting screen.");
+            CriticalResultVerifyAndClickStudyRow();
         }else{
             System.out.println("Study status is " + cellValue);
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
             assignStudyToMe(1,6);
             Thread.sleep(2000);
-            StudyRow.click();
+            CriticalResultVerifyAndClickStudyRow();
         }
     }
+
+    public void CriticalResultVerifyAndClickStudyRow() throws InterruptedException {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+            WebElement criticalIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody[1]/tr[1]/td[5]/span/span[2]")));
+            //WebElement criticalIcon = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[5]/span/span[2]"));
+            if (criticalIcon.isDisplayed()) {
+                StudyRow.click();
+                Thread.sleep(2000);
+                ContinueButton.click();
+                System.out.println("Critical popup displayed. Continue button clicked.");
+            }else{
+                StudyRow.click();
+                System.out.println("Critical result is not marked.");
+            }
+        } catch (TimeoutException e) {
+            StudyRow.click();
+            System.out.println("Critical result is not marked (No icon found).");
+        }
+    }
+
     public void getStudyStatus(){
         System.out.println(studyStatus.getText());
     }
@@ -225,24 +251,6 @@ public class RadWorklistElements {
     }
 
 
-//    public void assignStudyToMe(int rowIndex,int colIndex) throws InterruptedException {
-//        AssignIcon.click();
-//        Thread.sleep(2000);
-//        AssignToMeButton.click();
-//        Thread.sleep(2000);
-//        WebElement tableRow = driver.findElement(By.xpath("//tbody[@role=\"rowgroup\"]/tr"));
-//        List<WebElement> colList = tableRow.findElements(By.tagName("td"));
-////        int rowIndex = 1;
-////        int colIndex = 6;
-//        if(colIndex < colList.size()){
-//            WebElement cell = colList.get(colIndex);
-//            String cellValue = cell.getAccessibleName();
-//            Thread.sleep(3000);
-//            System.out.println("Study Assigned to Radiologist " + cellValue);
-//        } else {
-//            System.out.println("Column index " + colIndex + " is out of bounds for the row " + rowIndex);
-//        }
-//    }
 
     public void assignStudyToMe(int rowIndex,int colIndex) throws InterruptedException {
         AssignIcon.click();
@@ -261,8 +269,6 @@ public class RadWorklistElements {
         }
     }
 
-
-
     public void getResultStatus() throws InterruptedException {
         WebElement tableRow = driver.findElement(By.xpath("//tbody[@role=\"rowgroup\"]/tr"));
         List<WebElement> colList = tableRow.findElements(By.tagName("td"));
@@ -271,7 +277,7 @@ public class RadWorklistElements {
             String cellValue = cell.getAccessibleName();
             Thread.sleep(2000);
             System.out.println("Result status is " + cellValue);
-            StudyRow.click();
+            CriticalResultVerifyAndClickStudyRow();
         } else {
             System.out.println("Column index " + colIndex + " is out of bounds for the row " + rowIndex);
         }
@@ -393,6 +399,10 @@ public class RadWorklistElements {
         Thread.sleep(500);
         ArchivedStudiesMenu.click();
         System.out.println("Archived studies menu clicked!");
+    }
+
+    public void VerifyCriticalPopup(){
+        CriticalPopup.isDisplayed();
     }
 
 }

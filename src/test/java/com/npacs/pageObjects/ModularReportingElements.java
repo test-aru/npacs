@@ -1,13 +1,18 @@
 package com.npacs.pageObjects;
 
-import com.relevantcodes.extentreports.utils.Resources;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,7 +32,7 @@ public class ModularReportingElements {
     @FindBy (xpath ="//*[@class=\"arrow-down\"]") WebElement TemplateArrowDown;
     @FindBy (xpath = "//*[@class=\"mat-tab-label-content\"][contains(text(),'Relevant Templates')]") WebElement RelevantTemplatesTab;
     @FindBy (xpath = "//*[@class=\"mat-tab-label-content\"][contains(text(),'All Templates')]") WebElement AllTemplatesTab;
-    @FindBy (xpath = "/html/body/app-root/app-main-layout/app-side-nav/mat-sidenav-container/mat-sidenav-content/app-container/div/div/app-radiologist-worklist/div/div/div/div/div[2]/app-report-details/div/div[1]/div[6]/mat-tab-group/div/mat-tab-body/div/div/div[2]/div[3]/div[2]/div[1]/button/span[1]/span[1]/span[1]") WebElement SaveButton;
+   // @FindBy (xpath = "#mat-tab-content-0-0 > div > div > div.ng-tns-c310-7.clinical-info.ptb-15.plr-15.mb-10.p-r.mt-0.sec-color.border-none.rd-report-block.ng-star-inserted > div.white-bg.pb-10.d-ib.full-width.mt-0.p-a.action-box.ng-tns-c310-7 > div.float-r.ng-tns-c310-7 > div:nth-child(3) > button > span.mat-button-wrapper > span.d-ib.width-90 > img") WebElement SaveButton;
     @FindBy (xpath = "//*[contains(text(),'Sign Report')]/following-sibling::span[@class=\"arrow-border\"]") WebElement MarkasDraftedArrow;
     @FindBy (xpath = "//button/span[contains(text(),'Mark as DRAFTED')]") WebElement MarkasDraftedButton;
     @FindBy (xpath = "//table/tbody/tr/div/td[2]/span[2]") WebElement reportStatus;
@@ -91,11 +96,10 @@ public class ModularReportingElements {
     }
 
 
-
-
     public void saveReport() throws InterruptedException {
-        Thread.sleep(2000);
-        SaveButton.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#mat-tab-content-0-0 > div > div > div.ng-tns-c310-7.clinical-info.ptb-15.plr-15.mb-10.p-r.mt-0.sec-color.border-none.rd-report-block.ng-star-inserted > div.white-bg.pb-10.d-ib.full-width.mt-0.p-a.action-box.ng-tns-c310-7 > div.float-r.ng-tns-c310-7 > div:nth-child(3) > button > span.mat-button-wrapper > span.d-ib.width-90 > span")));
+        saveButton.click();
         System.out.println("Clicked on Save Button");
         getReportStatus();
     }
@@ -205,7 +209,39 @@ public class ModularReportingElements {
 //            System.out.println("Card Status: '" + CardSTATUS + "'");
       //  }
 
+        }
+        @FindBy (xpath = "//*[@id=\"editorFindings\"]//div//div//div[@class=\"angular-editor-textarea\"]") WebElement FindingsBlock;
+
+    FileReader fr = null;
+    BufferedReader br = null;
+    String readLine;
+    String DataFilePath;
+    StringBuffer sb=new StringBuffer();
+    String line;
+    String filePath = "./testData/metatag.txt";
+
+    private StringBuffer readTextFromFile(String filePath) throws IOException {
+        fr = new FileReader(filePath);
+        br = new BufferedReader(fr);
+        while ((readLine= br.readLine()) != null) {
+            line = readLine;
+            sb.append(line+"\n");
+    }
+        return sb;
+  }
+    public void EnterMetaTagContent() throws IOException, InterruptedException {
+       // StringBuffer sbb = readTextFromFile(filePath);
+        String fileContent = new String(Files.readAllBytes(Paths.get(filePath)));
+        System.out.println(fileContent);
+        Thread.sleep(1500);
+        EditFindings(fileContent);
     }
 
-
+    public void EditFindings(String text){
+        FindingsBlock.clear();
+        FindingsBlock.sendKeys(text);
+    }
 }
+
+
+

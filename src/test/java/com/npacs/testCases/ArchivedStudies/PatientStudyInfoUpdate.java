@@ -6,47 +6,43 @@ import com.npacs.pageObjects.LoginPageElements;
 import com.npacs.pageObjects.RadWorklistElements;
 import com.npacs.testCases.BaseClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class PatientStudyInfoUpdate extends BaseClass {
-       String patientID = "001100";
-       String patientName = "UNNAMALAIAMMAN";
+       String searchPatientID = "688854";
+       String searchPatientName = "PERIYATHAYE";
 
-    LoginPageElements lp;
-    DashboardElements db;
-    RadWorklistElements rw;
-    ArchivedStudiesElements Ae;
+       String editPatientID = "798854";
+       String editPatientName = "KIRUBA";
 
        @BeforeClass
-       public void setUp() throws InterruptedException {
-           lp=new LoginPageElements(driver);
-           db=new DashboardElements(driver);
-           rw=new RadWorklistElements(driver);
-           Ae = new ArchivedStudiesElements(driver);
-           lp.adminLogin();
+       public void GoToArchivedStudies() throws InterruptedException {
+           lp.loginApplication("admin","123");
            db.clickOnWorklistArchive();
            rw.ClickOnArchivedStudies();
        }
 
-    @Test(priority = 0)
+    @Test(priority = 1)
     public void ValidateToEditPatientID() throws InterruptedException {
         Ae.ApplyThisMonthDate();
-        Ae.searchPatientID("005600");
+        Ae.searchPatientID(searchPatientID);
         Ae.openPatientEditPopup();
-        Ae.EditPatientID(patientID);
-        Ae.searchPatientID(patientID);
-        Ae.verifyUpdatedPatientID(patientID);
+        Ae.EditPatientID(editPatientID);
+        Ae.searchPatientID(editPatientID);
+        Ae.verifyUpdatedPatientID(editPatientID);
         Ae.resetSearch();
     }
 
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void ValidateToEditPatientName() throws InterruptedException {
         Ae.ApplyThisMonthDate();
-        Ae.searchPatientName("UNNAMALAI");
+        Ae.searchPatientName(searchPatientName);
         Ae.openPatientEditPopup();
-        Ae.EditPatientName(patientName);
-        Ae.searchPatientName(patientName);
-        Ae.verifyUpdatedPatientName(patientName);
+        Ae.EditPatientName(editPatientName);
+        Ae.searchPatientName(editPatientName);
+        Ae.verifyUpdatedPatientName(editPatientName);
         Ae.resetSearch();
     }
 

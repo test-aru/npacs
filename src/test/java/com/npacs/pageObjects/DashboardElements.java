@@ -49,6 +49,9 @@ public class DashboardElements {
     @FindBy (xpath = "//div/mat-tab-body[@role=\"tabpanel\"]/div/div/div[6][contains(text(),'Critical')]") WebElement CriticalPanelMyStatus;
 
     @FindBy(xpath = "//*[contains(text(),'Show More')]") WebElement ShowMorePanel;
+    @FindBy (xpath = "//mat-toolbar//div[2]//button[5]") WebElement ProfileIcon;
+    @FindBy (xpath = "//mat-toolbar//div//div//button") WebElement LogoutButton;
+    @FindBy (xpath = "//app-confirm-logout//div[3]//button[2]") WebElement OkButtonForLogout;
 
     RadWorklistElements Rw;
 
@@ -290,7 +293,16 @@ public class DashboardElements {
     }
 
 
+     public void RefreshPage() throws InterruptedException {
+        Thread.sleep(200);
+        driver.navigate().refresh();
+     }
+
+     public void Logout(){
+        ProfileIcon.click();
+         LogoutButton.click();
+         OkButtonForLogout.click();
 
 
-
+     }
 }

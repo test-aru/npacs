@@ -2,25 +2,17 @@ package com.npacs.testCases.LoginTC;
 import com.npacs.assertions.LoginAssertions;
 import com.npacs.pageObjects.LoginPageElements;
 import com.npacs.testCases.BaseClass;
-import org.apache.poi.ddf.EscherRecord;
+import com.npacs.utilities.BrowserFactory;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import com.npacs.utilities.Screenshot;
 
 
 public class LoginTestCases extends BaseClass {
-    public void login() throws InterruptedException {
-        LoginAssertions la=new LoginAssertions(driver);
-        LoginPageElements lp=new LoginPageElements(driver);
-        la.navigatedToLoginScreen();
-//        String username = "raster";
-//        String password = "raster";
-        lp.loginApplication("raster","raster");
-        //Screenshot.takeScreenshot(driver);
-        la.navigatedToDashboardScreen();
 
-    }
 
-    @Test(priority=0)
+    @Test(priority=8)
     public void loginWithValidUsernameAndPassword() throws InterruptedException {
         LoginAssertions la=new LoginAssertions(driver);
         LoginPageElements lp=new LoginPageElements(driver);
@@ -30,11 +22,11 @@ public class LoginTestCases extends BaseClass {
         lp.loginApplication(username,password);
         //Screenshot.takeScreenshot(driver);
         la.navigatedToDashboardScreen();
-
+        db.RefreshPage();
     }
 
     @Test (priority=1)
-    public void loginWithInValidUsernameAndValidPassword(){
+    public void loginWithInValidUsernameAndValidPassword() throws InterruptedException {
         LoginAssertions la=new LoginAssertions(driver);
         la.navigatedToLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
@@ -43,9 +35,11 @@ public class LoginTestCases extends BaseClass {
         lp.loginApplication(username,password);
        // Screenshot.takeScreenshot(driver);
         la.navigatedToDashboardScreen();
+        db.RefreshPage();
     }
+
     @Test (priority=2)
-    public void loginWithValidUsernameAndInValidPassword(){
+    public void loginWithValidUsernameAndInValidPassword() throws InterruptedException {
         LoginAssertions la=new LoginAssertions(driver);
         la.navigatedToLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
@@ -53,9 +47,12 @@ public class LoginTestCases extends BaseClass {
         String password = "raster0";
         lp.loginApplication(username,password);
         la.navigatedToDashboardScreen();
+        db.RefreshPage();
+
     }
+
     @Test (priority=3)
-    public void loginWithInValidUsernameAndInValidPassword(){
+    public void loginWithInValidUsernameAndInValidPassword() throws InterruptedException {
         LoginAssertions la=new LoginAssertions(driver);
         la.navigatedToLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
@@ -63,9 +60,11 @@ public class LoginTestCases extends BaseClass {
         String password = "raster0";
         lp.loginApplication(username,password);
         la.navigatedToDashboardScreen();
+        db.RefreshPage();
     }
+
     @Test (priority=4)
-    public void loginWithUsernameAndPasswordInUpperCase(){
+    public void loginWithUsernameAndPasswordInUpperCase() throws InterruptedException {
         LoginAssertions la=new LoginAssertions(driver);
         la.navigatedToLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
@@ -73,19 +72,23 @@ public class LoginTestCases extends BaseClass {
         String password = "RASTER";
         lp.loginApplication(username,password);
         la.navigatedToDashboardScreen();
+        db.RefreshPage();
     }
+
     @Test (priority=5)
-    public void loginWithUsernameAndPasswordInSpecialChar(){
+    public void loginWithUsernameAndPasswordInSpecialChar() throws InterruptedException {
         LoginAssertions la=new LoginAssertions(driver);
         la.navigatedToLoginScreen();
-        LoginPageElements lp=new LoginPageElements(driver);
+       LoginPageElements lp=new LoginPageElements(driver);
         String username = "RAS%^&#";
         String password = "RAS@!$%";
         lp.loginApplication(username,password);
         la.navigatedToDashboardScreen();
+        db.RefreshPage();
     }
+
     @Test (priority=6)
-    public void loginWithUsernameAndPasswordIsEmpty(){
+    public void loginWithUsernameAndPasswordIsEmpty() throws InterruptedException {
         LoginAssertions la=new LoginAssertions(driver);
         la.navigatedToLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
@@ -93,9 +96,11 @@ public class LoginTestCases extends BaseClass {
         String password = "    ";
         lp.loginApplication(username,password);
         la.navigatedToDashboardScreen();
+        db.RefreshPage();
     }
+
     @Test (priority=7)
-    public void loginWithUsernameAndEmptyPassword(){
+    public void loginWithUsernameAndEmptyPassword() throws InterruptedException {
         LoginAssertions la=new LoginAssertions(driver);
         la.navigatedToLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
@@ -103,6 +108,7 @@ public class LoginTestCases extends BaseClass {
         String password = "    ";
         lp.loginApplication(username,password);
         la.navigatedToDashboardScreen();
+        db.RefreshPage();
     }
 
 

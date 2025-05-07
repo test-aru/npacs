@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Parallel Browser Testing" parallel="tests" thread-count="2">
+    <test name="Chrome Test">
+        <parameter name="browser" value="Chrome" />
+        <classes>
+            <class name="com.npacs.testCases.DashboardTC.StudyCountsForHOD" />
+        </classes>
+    </test>
+
+    <test name="Firefox Test">
+        <parameter name="browser" value="Firefox" />
+        <classes>
+            <class name="com.npacs.testCases.DashboardTC.StudyCountsForHOD" />
+        </classes>
+    </test>
+</suite>

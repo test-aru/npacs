@@ -1,31 +1,29 @@
 package com.npacs.testCases.WorklistTC;
 import com.npacs.assertions.LoginAssertions;
-import com.npacs.pageObjects.LoginPageElements;
-import com.npacs.pageObjects.DashboardElements;
-import com.npacs.pageObjects.ModularReportingElements;
-import com.npacs.pageObjects.RadWorklistElements;
+import com.npacs.pageObjects.*;
 import com.npacs.testCases.BaseClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
 
 public class RadWorklistStudies extends BaseClass {
-
+    
 
     @Test (priority = 0)
     public void ValidateReporting() throws InterruptedException {
-        LoginPageElements lp=new LoginPageElements(driver);
+       // LoginPageElements lp=new LoginPageElements(driver);
         lp.radVijayLogin();
-        DashboardElements db=new DashboardElements(driver);
+      //  DashboardElements db=new DashboardElements(driver);
         db.clickOnWorklistArchive();
-        RadWorklistElements rw=new RadWorklistElements(driver);
+    //    RadWorklistElements rw=new RadWorklistElements(driver);
         rw.clickOnLast15Days();
-        rw.searchPatient("686396");
+        rw.searchPatient("690221");
         Thread.sleep(2000);
         rw.findTotalNosRow();
         rw.checkStatusAndNavigate();
         Thread.sleep(2000);
-        ModularReportingElements Re = new ModularReportingElements(driver);
+  //      ModularReportingElements Re = new ModularReportingElements(driver);
         Re.verifyPatientTab();
 //        Re.getAllCardStudies();
         Re.selectTemplate();
@@ -37,12 +35,13 @@ public class RadWorklistStudies extends BaseClass {
         Re.EditTheReport();
         Re.backToWorklist();
         rw.clickOnLast15Days();
-        rw.searchPatient("686396");
+        rw.searchPatient("690221");
         rw.getResultStatus();
+       // Re.saveReport();
         Re.SignReport();
         Re.backToWorklist();
         rw.clickOnLast15Days();
-        rw.searchPatient("686396");
+        rw.searchPatient("690221");
         rw.getResultStatus();
 
     }

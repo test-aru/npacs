@@ -3,9 +3,13 @@ package com.npacs.testCases.LoginTC;
 import com.npacs.pageObjects.LoginPageElements;
 import com.npacs.testCases.BaseClass;
 import org.apache.commons.collections4.bag.SynchronizedSortedBag;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class RolesLoginTest extends BaseClass {
+
+
 
     @Test
     public void adminLoginTest() throws InterruptedException {
@@ -15,34 +19,36 @@ public class RolesLoginTest extends BaseClass {
         String username = "raster";
         String password = "raster";
         lp.loginApplication(username,password);
-
+        Thread.sleep(5000);
+        db.Logout();
     }
 
     @Test
-    public void drVijayLoginTest(){
+    public void drVijayLoginTest() throws InterruptedException {
         LoginPageElements lp=new LoginPageElements(driver);
         String username = "user.0";
         String password = "user@0";
         lp.loginApplication(username,password);
-
+        db.Logout();
     }
 
     @Test
-    public void gatekeeperLoginTest(){
+    public void gatekeeperLoginTest() throws InterruptedException {
         LoginPageElements lp=new LoginPageElements(driver);
         String username = "user.201";
         String password = "user201";
         lp.loginApplication(username,password);
+        db.Logout();
 
     }
 
     @Test
-    public void technicianLoginTest(){
+    public void technicianLoginTest() throws InterruptedException {
         LoginPageElements lp=new LoginPageElements(driver);
         String username = "user.301";
         String password = "user301";
         lp.loginApplication(username,password);
+        db.Logout();
 
     }
-
 }
