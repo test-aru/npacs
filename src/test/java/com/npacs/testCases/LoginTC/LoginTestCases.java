@@ -3,6 +3,7 @@ import com.npacs.assertions.LoginAssertions;
 import com.npacs.pageObjects.LoginPageElements;
 import com.npacs.testCases.BaseClass;
 import com.npacs.utilities.BrowserFactory;
+import com.npacs.utilities.Screenshot;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
@@ -33,7 +34,7 @@ public class LoginTestCases extends BaseClass {
         String username = "raster0";
         String password = "raster";
         lp.loginApplication(username,password);
-       // Screenshot.takeScreenshot(driver);
+        Screenshot.takeScreenshot(driver);
         la.navigatedToDashboardScreen();
         db.RefreshPage();
     }

@@ -11,7 +11,6 @@ import java.time.Duration;
 import java.util.Date;
 
 public class Screenshot {
-   public WebDriver driver;
 
    public static void takeScreenshot(WebDriver driver) throws InterruptedException {
        Thread.sleep(3000);
