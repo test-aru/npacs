@@ -8,7 +8,8 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 public class RadWorklistStudies extends BaseClass {
-    
+
+    String PatientID = "692014";
 
     @Test (priority = 0)
     public void ValidateReporting() throws InterruptedException {
@@ -18,7 +19,7 @@ public class RadWorklistStudies extends BaseClass {
         db.clickOnWorklistArchive();
     //    RadWorklistElements rw=new RadWorklistElements(driver);
         rw.clickOnLast15Days();
-        rw.searchPatient("690221");
+        rw.searchPatient(PatientID);
         Thread.sleep(2000);
         rw.findTotalNosRow();
         rw.checkStatusAndNavigate();
@@ -35,13 +36,13 @@ public class RadWorklistStudies extends BaseClass {
         Re.EditTheReport();
         Re.backToWorklist();
         rw.clickOnLast15Days();
-        rw.searchPatient("690221");
+        rw.searchPatient(PatientID);
         rw.getResultStatus();
        // Re.saveReport();
         Re.SignReport();
         Re.backToWorklist();
         rw.clickOnLast15Days();
-        rw.searchPatient("690221");
+        rw.searchPatient(PatientID);
         rw.getResultStatus();
 
     }

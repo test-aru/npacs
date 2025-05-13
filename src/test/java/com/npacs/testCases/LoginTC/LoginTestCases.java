@@ -1,5 +1,6 @@
 package com.npacs.testCases.LoginTC;
 import com.npacs.assertions.LoginAssertions;
+import com.npacs.pageObjects.DashboardElements;
 import com.npacs.pageObjects.LoginPageElements;
 import com.npacs.testCases.BaseClass;
 import com.npacs.utilities.BrowserFactory;
@@ -8,18 +9,25 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import com.npacs.utilities.ReadExcel;
+
+import java.io.IOException;
 
 
 public class LoginTestCases extends BaseClass {
 
 
     @Test(priority=8)
-    public void loginWithValidUsernameAndPassword() throws InterruptedException {
+    public void loginWithValidUsernameAndPassword() throws InterruptedException, IOException {
         LoginAssertions la=new LoginAssertions(driver);
         LoginPageElements lp=new LoginPageElements(driver);
         la.navigatedToLoginScreen();
-        String username = "raster";
-        String password = "raster";
+        ReadExcel obj = new ReadExcel();
+        String[] crdentials = obj.getUsernamePasswordFromExcel(1);
+        String username = crdentials[0];
+        String password = crdentials[1];
+       // String username = "raster";
+       // String password = "raster";
         lp.loginApplication(username,password);
         //Screenshot.takeScreenshot(driver);
         la.navigatedToDashboardScreen();

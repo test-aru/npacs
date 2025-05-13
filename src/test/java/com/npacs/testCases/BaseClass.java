@@ -28,10 +28,6 @@ public class BaseClass   {
         rw = new RadWorklistElements(driver);
         lp = new LoginPageElements(driver);
         Re = new ModularReportingElements(driver);
-
-
-
-
     }
 
     @AfterClass
