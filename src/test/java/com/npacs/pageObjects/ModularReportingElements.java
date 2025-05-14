@@ -32,7 +32,7 @@ public class ModularReportingElements {
     @FindBy (xpath ="//*[@class=\"arrow-down\"]") WebElement TemplateArrowDown;
     @FindBy (xpath = "//*[@class=\"mat-tab-label-content\"][contains(text(),'Relevant Templates')]") WebElement RelevantTemplatesTab;
     @FindBy (xpath = "//*[@class=\"mat-tab-label-content\"][contains(text(),'All Templates')]") WebElement AllTemplatesTab;
-   // @FindBy (xpath = "#mat-tab-content-0-0 > div > div > div.ng-tns-c310-7.clinical-info.ptb-15.plr-15.mb-10.p-r.mt-0.sec-color.border-none.rd-report-block.ng-star-inserted > div.white-bg.pb-10.d-ib.full-width.mt-0.p-a.action-box.ng-tns-c310-7 > div.float-r.ng-tns-c310-7 > div:nth-child(3) > button > span.mat-button-wrapper > span.d-ib.width-90 > img") WebElement SaveButton;
+    @FindBy (xpath = "//*[contains(@class, 'icon-save-icon')]") WebElement SaveButton;
     @FindBy (xpath = "//*[contains(text(),'Sign Report')]/following-sibling::span[@class=\"arrow-border\"]") WebElement MarkasDraftedArrow;
     @FindBy (xpath = "//button/span[contains(text(),'Mark as DRAFTED')]") WebElement MarkasDraftedButton;
     @FindBy (xpath = "//table/tbody/tr/div/td[2]/span[2]") WebElement reportStatus;
@@ -97,9 +97,9 @@ public class ModularReportingElements {
 
 
     public void saveReport() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#mat-tab-content-0-0 > div > div > div.ng-tns-c310-7.clinical-info.ptb-15.plr-15.mb-10.p-r.mt-0.sec-color.border-none.rd-report-block.ng-star-inserted > div.white-bg.pb-10.d-ib.full-width.mt-0.p-a.action-box.ng-tns-c310-7 > div.float-r.ng-tns-c310-7 > div:nth-child(3) > button > span.mat-button-wrapper > span.d-ib.width-90 > span")));
-        saveButton.click();
+        //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        Thread.sleep(2000);
+        SaveButton.click();
         System.out.println("Clicked on Save Button");
         getReportStatus();
     }

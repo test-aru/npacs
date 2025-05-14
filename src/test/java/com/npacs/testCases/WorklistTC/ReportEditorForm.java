@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class ReportEditorForm extends BaseClass {
 
-    String PatientID = "689789";
+    String PatientID = "692777";
 
     LoginPageElements lp;
     DashboardElements db;
@@ -44,6 +44,6 @@ public class ReportEditorForm extends BaseClass {
         Re.saveReport();
         Thread.sleep(1000);
         Re.PrintPreview();
-
     }
+
 }

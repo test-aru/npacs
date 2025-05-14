@@ -9,7 +9,7 @@ import java.time.Duration;
 
 public class RadWorklistStudies extends BaseClass {
 
-    String PatientID = "692014";
+    String PatientID = "692765";
 
     @Test (priority = 0)
     public void ValidateReporting() throws InterruptedException {
@@ -38,7 +38,7 @@ public class RadWorklistStudies extends BaseClass {
         rw.clickOnLast15Days();
         rw.searchPatient(PatientID);
         rw.getResultStatus();
-       // Re.saveReport();
+        Re.saveReport();
         Re.SignReport();
         Re.backToWorklist();
         rw.clickOnLast15Days();
