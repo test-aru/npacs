@@ -2,12 +2,14 @@ package com.npacs.pageObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -52,7 +54,50 @@ public class ModularReportingElements {
     @FindBy (xpath = "//div/label/div[2]/span[1]") WebElement CardPatientID;
     @FindBy (xpath = "//*[@data-placeholder=\"Search\"]") WebElement CardSearch;
     @FindBy (xpath = "//div[1]/label[@for=\"panel-0\"]") WebElement firstCardView;
+    @FindBy (xpath = "//*[contains(text(),'Create Provisional Report')]") WebElement PrelimLink;
+    @FindBy (xpath = "//*[contains(text(),'Provisional Report')]") WebElement ProvisionalReportFormTitle;
+    @FindBy (xpath = "//*[@formcontrolname=\"preliminaryTitle\"]") WebElement PrelimTitle;
+    @FindBy (xpath = "/html/body/app-root/app-main-layout/app-side-nav/mat-sidenav-container/mat-sidenav-content/app-container/div/div/app-radiologist-worklist/div/div/div/div/div[2]/app-report-details/div/div[1]/div[6]/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/div[1]/div/app-prelim-report/div/form/div[2]/angular-editor/div/div/div") WebElement PrelimFindings;
+    @FindBy (xpath = "/html/body/app-root/app-main-layout/app-side-nav/mat-sidenav-container/mat-sidenav-content/app-container/div/div/app-radiologist-worklist/div/div/div/div/div[2]/app-report-details/div/div[1]/div[6]/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/div[1]/div/app-prelim-report/div/form/div[3]/angular-editor/div/div/div") WebElement PrelimImpression;
+    @FindBy (xpath = "//*[contains(text(),\"Create Final Report\")]") WebElement CreateFinalReport;
+    @FindBy (xpath = "//*[contains(text(),\" Add New Report \")]") WebElement AddNewReport;
+   // @FindBy (xpath = "//*[@id=\"mat-tab-content-14-1\"]/div/div[1]/table/tbody") WebElement ReportRowTable;
 
+   public void getReportRows(){
+       WebElement ReportRows = driver.findElement(By.xpath("//*[@id=\\\"mat-tab-content-14-1\\\"]/div/div[1]/table/tbody"));
+       List<WebElement> AllReports = ReportRows.findElements(By.tagName("tr"));
+       System.out.println("Number of reports : "+ AllReports.size());
+
+       for (WebElement ele : AllReports){
+           System.out.println("Report : "+ ele.getText());
+       }
+   }
+
+
+
+    public void openPrelimReport(){
+        PrelimLink.click();
+        System.out.println(ProvisionalReportFormTitle.getText() + "Form is loaded");
+    }
+
+    public void AddPrelimContent(){
+        PrelimTitle.sendKeys("PRELIM");
+        PrelimFindings.sendKeys("Brainstem is normal. Cerebello-pontine angles are normal. Vermis and both cerebellar hemispheres are normal. Fourth ventricle is normal.");
+        PrelimImpression.sendKeys("No intracranial abnormality.");
+
+    }
+
+    public void createFinalReport() throws InterruptedException {
+        Thread.sleep(1000);
+        CreateFinalReport.click();
+        System.out.println("Final report form is Created!");
+    }
+
+    public void addNewReport() throws InterruptedException {
+        Thread.sleep(1000);
+        AddNewReport.click();
+        System.out.println("New Final report form is Loaded!");
+    }
 
     public void verifyPatientTab(){
         String ActiveTabPatent = ActiveTab.getText();
@@ -237,9 +282,12 @@ public class ModularReportingElements {
         EditFindings(fileContent);
     }
 
-    public void EditFindings(String text){
+    public void EditFindings(String text) throws InterruptedException {
         FindingsBlock.clear();
         FindingsBlock.sendKeys(text);
+        Thread.sleep(1000);
+        Actions ac = new Actions(driver);
+        ac.moveToElement(SaveButton).click().build().perform();
     }
 }
 

@@ -11,11 +11,11 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class PatientStudyInfoUpdate extends BaseClass {
-       String searchPatientID = "688854";
-       String searchPatientName = "PERIYATHAYE";
+       String searchPatientID = "693554";
+       String searchPatientName = "ANSAR BASHA ";
 
-       String editPatientID = "798854";
-       String editPatientName = "KIRUBA";
+       String editPatientID = "690002";
+       String editPatientName = "JOTHILAKSHMI";
 
        @BeforeClass
        public void GoToArchivedStudies() throws InterruptedException {

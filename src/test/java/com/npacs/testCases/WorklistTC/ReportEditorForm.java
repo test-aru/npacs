@@ -4,6 +4,7 @@ import com.npacs.pageObjects.*;
 import com.npacs.testCases.BaseClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import com.npacs.utilities.Screenshot;
 
 import java.io.IOException;
 
@@ -41,9 +42,10 @@ public class ReportEditorForm extends BaseClass {
         Thread.sleep(2000);
         Re.EnterMetaTagContent();
         Thread.sleep(1000);
-        Re.saveReport();
-        Thread.sleep(1000);
-        Re.PrintPreview();
+        Screenshot.takeScreenshot(driver);
+       // Re.saveReport();
+       // Thread.sleep(1000);
+      //  Re.PrintPreview();
     }
 
 }

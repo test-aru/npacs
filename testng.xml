@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Parallel Browser Testing" parallel="tests" thread-count="2">
+
+    <Listeners>
+        <class name="com.npacs.utilities.MyListener"/>
+    </Listeners>
     <test name="Chrome Test">
         <parameter name="browser" value="Chrome" />
         <classes>

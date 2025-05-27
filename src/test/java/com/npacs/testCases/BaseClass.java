@@ -30,10 +30,10 @@ public class BaseClass   {
         Re = new ModularReportingElements(driver);
     }
 
-    @AfterClass
-    public void tearDown() throws InterruptedException{
-        BrowserFactory.quitBrowser(driver);
-    }
+//    @AfterClass
+//    public void tearDown() throws InterruptedException{
+//        BrowserFactory.quitBrowser(driver);
+//    }
 
 
 }

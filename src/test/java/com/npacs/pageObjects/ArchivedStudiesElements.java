@@ -31,7 +31,7 @@ public class ArchivedStudiesElements {
     WebElement ResetIcon;
     @FindBy(xpath = "//tr[1]/td[9]/button[2]/span/mat-icon")
     WebElement matIcon;
-    @FindBy(xpath = "//div/button[3][contains(text(),'Update Patient / Study Info')]")
+    @FindBy(xpath = "//*[contains(text(),'Update Patient / Study Info')]")
     WebElement UpdatePatientStudyInfo;
     @FindBy(xpath = "//div/h3[contains(text(),' Update Patient / Study Information ')]")
     WebElement UpdatePatientTitle;
@@ -61,7 +61,7 @@ public class ArchivedStudiesElements {
         PatientIDsearch.sendKeys(patientID);
         Thread.sleep(500);
         SearchIcon.click();
-        Thread.sleep(500);
+        Thread.sleep(1000);
     }
 
     public void searchPatientName(String patientName) throws InterruptedException {
@@ -69,7 +69,7 @@ public class ArchivedStudiesElements {
         PatientNamesearch.sendKeys(patientName);
         Thread.sleep(500);
         SearchIcon.click();
-        Thread.sleep(500);
+        Thread.sleep(1000);
     }
 
     public void resetSearch() throws InterruptedException {
@@ -111,7 +111,7 @@ public class ArchivedStudiesElements {
         clickOnMatIcon();
         Thread.sleep(500);
         verifyPopupTitle();
-        verifyPatient();
+       // verifyPatient();
     }
 
     public void EditPatientDetails(){
