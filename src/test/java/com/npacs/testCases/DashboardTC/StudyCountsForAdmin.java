@@ -6,6 +6,8 @@ import com.npacs.pageObjects.RadWorklistElements;
 import com.npacs.testCases.BaseClass;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class StudyCountsForAdmin extends BaseClass{
@@ -15,7 +17,7 @@ public class StudyCountsForAdmin extends BaseClass{
     @BeforeClass
     public void userLogin() throws InterruptedException {
         LoginPageElements LP = new LoginPageElements(driver);
-        LP.adminLogin();
+        LP.loginApplication("admin","123");
         //LP.verifyLoginUser();
     }
 

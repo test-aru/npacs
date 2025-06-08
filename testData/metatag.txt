@@ -1,0 +1,38 @@
+<div>
+<span>
+<div style="margin-bottom: 7px">
+<font face="Tahoma, serif"><font size="2">Mildly
+enlarged periportal lymph nodes are seen</font></font><font size="2">.</font></div>
+<div style="margin-bottom: 7px">
+<font face="Tahoma, serif"><font size="2">Gall
+bladder is not seen. Post cholecystectomy status. Prominent CBD is
+seen. </font></font>
+</div>
+<div style="margin-bottom: 7px">
+<font face="Tahoma, serif"><font size="2"><span>Proximal
+CBD</span></font></font><font face="Tahoma, serif"><font size="2">
+is prominent ( mm maximal diameter) and is seen tapering to normal
+caliber at its distal end. No radiodense calculus is seen.</font></font></div>
+<div style="margin-bottom: 7px">
+<font face="Tahoma, serif"><font size="2">Extrahepatic
+</font></font><font face="Tahoma, serif"><font size="2"><span>portal
+vein</span></font></font><font face="Tahoma, serif"><font size="2">
+is dilated (mm maximal diameter) with normal luminal enhancement.
+</font></font><font face="Tahoma, serif"><font size="2"><span>Splenic
+vein</span></font></font><font face="Tahoma, serif"><font size="2">
+and </font></font><font size="2"><span>SMV</span></font><font face="Tahoma, serif"><font size="2">
+are normal. </font></font>
+</div>
+<div style="margin-bottom: 7px">
+<font face="Tahoma, serif"><font size="2">Dilated
+coronary vein is seen with dilated, tortuous fundal, paraoesophageal
+and spleno-renal porto-systemic collateral veins.</font></font></div>
+</span>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"><title></title><meta name="generator" content="LibreOffice 6.0.7.3 (Linux)"><style type="text/css">
+		@page { margin: 2cm }
+		p { margin-bottom: 0.21cm; direction: ltr; color: #000000; text-align: left; orphans: 2; widows: 2 }
+		p.western { font-family: "Cambria", serif; font-size: 12pt; so-language: x-none }
+		p.cjk { font-family: "Cambria"; font-size: 12pt; so-language: x-none }
+		p.ctl { font-family: "Times New Roman"; font-size: 12pt; so-language: ar-SA }
+	</style></div><div>500 ml of water–soluble iodinated oral contrast was administered via nasogastric tube in delayed phase CECT to distend and opacify the stomach and duodenum.
+Negative oral contrast (mannitol + saline) was given to distend the small bowel loops.</div>

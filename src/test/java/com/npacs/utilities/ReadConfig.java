@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class ReadConfig {
 
-    Properties pro;
+     Properties pro;
 
     public ReadConfig() {
         File src = new File("./Configuration/config.properties");
@@ -22,7 +22,10 @@ public class ReadConfig {
     }
 
     //Getter methods for retrieve properties from config.properties file
-    public String getBrowser(){return pro.getProperty("browser");}
+   // public String getBrowser(){return pro.getProperty("browser");}
+    public String getBrowser(){
+        return pro.getProperty("browser");
+    }
 
     public String getApplicationURL(){
         return pro.getProperty("baseURL");

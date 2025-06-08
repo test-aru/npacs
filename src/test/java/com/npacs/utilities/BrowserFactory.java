@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -15,14 +16,21 @@ public class BrowserFactory {
         if(browserName.equals("Chrome"))
         {
             //System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver_132");
-            System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver_134");
+            System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver_136");
             ChromeOptions op = new ChromeOptions();
+            //op.addArguments("--headless");
             op.addArguments("--remote-allow-origins=*");
+            op.addArguments("--disable-application-cache");
+            op.addArguments("--disk-cache-size=0");
+            op.addArguments("--incognito"); // optional: incognito mode disables many forms of caching
+            op.addArguments("--start-maximized");
             driver = new ChromeDriver(op);
         }
         else if(browserName.equals("Firefox"))
         {
-            System.setProperty("webdriver.chrome.driver", "./Drivers/geckodriver.exe");
+            System.setProperty("webdriver.chrome.driver", "./drivers/geckodriver.exe");
+            FirefoxOptions options = new FirefoxOptions();
+           // options.addArguments("--headless");
             driver = new FirefoxDriver();
         }
         else if(browserName.equals("IE"))
