@@ -1,6 +1,7 @@
 package com.npacs.pageObjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -61,17 +62,39 @@ public class ModularReportingElements {
     @FindBy (xpath = "/html/body/app-root/app-main-layout/app-side-nav/mat-sidenav-container/mat-sidenav-content/app-container/div/div/app-radiologist-worklist/div/div/div/div/div[2]/app-report-details/div/div[1]/div[6]/mat-tab-group/div/mat-tab-body[1]/div/div/div[2]/div[1]/div/app-prelim-report/div/form/div[3]/angular-editor/div/div/div") WebElement PrelimImpression;
     @FindBy (xpath = "//*[contains(text(),\"Create Final Report\")]") WebElement CreateFinalReport;
     @FindBy (xpath = "//*[contains(text(),\" Add New Report \")]") WebElement AddNewReport;
-   // @FindBy (xpath = "//*[@id=\"mat-tab-content-14-1\"]/div/div[1]/table/tbody") WebElement ReportRowTable;
+    @FindBy (xpath = "//*[@class=\"mat-tab-label-content\"][contains(text(),'Reports')]") WebElement ReportsTab;
+   // @FindBy (xpath = "//mat-tab-body[2]//table[1]//tbody") WebElement ReportRowTable;
 
-   public void getReportRows(){
-       WebElement ReportRows = driver.findElement(By.xpath("//*[@id=\\\"mat-tab-content-14-1\\\"]/div/div[1]/table/tbody"));
-       List<WebElement> AllReports = ReportRows.findElements(By.tagName("tr"));
-       System.out.println("Number of reports : "+ AllReports.size());
+   public void ClickOnReport(String status) throws InterruptedException {
+       ReportsTab.click();
+       Thread.sleep(1000);
+       WebElement ReportRows = driver.findElement(By.xpath("//mat-tab-body[2]//table[1]//tbody"));
+       List<WebElement> rows = ReportRows.findElements(By.tagName("tr"));
+       System.out.println("Number of reports : "+ rows.size());
 
-       for (WebElement ele : AllReports){
-           System.out.println("Report : "+ ele.getText());
+       for(int i=0;i<rows.size();i++){
+           WebElement row = rows.get(i);
+           String rowText = row.getText();
+
+           if(rowText.contains(status)){
+               System.out.println("Clicking row at index : " + i);
+               WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+               JavascriptExecutor je = (JavascriptExecutor) driver;
+               je.executeScript("arguments[0].scrollIntoView(false);", row);
+                wait.until(ExpectedConditions.elementToBeClickable(row));
+               Thread.sleep(2000);
+               row.click();
+               System.out.println(row.getText());
+               break;
+           }
        }
+//       for (WebElement ele : rows){
+//           String reportRow = ele.getText();
+//           System.out.println("Report : "+ reportRow);
+//       }
    }
+
+
 
 
 

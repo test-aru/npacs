@@ -1,5 +1,7 @@
 package com.npacs.testCases;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
 import com.npacs.assertions.LoginAssertions;
 import com.npacs.pageObjects.*;
 import com.npacs.utilities.BrowserFactory;
@@ -19,7 +21,6 @@ public class BaseClass   {
     protected ModularReportingElements Re;
 
 
-
     @BeforeClass
     public void setup() throws InterruptedException {
         driver= BrowserFactory.startApplication(driver,config.getBrowser(),config.getApplicationURL());
@@ -34,6 +35,8 @@ public class BaseClass   {
 //    public void tearDown() throws InterruptedException{
 //        BrowserFactory.quitBrowser(driver);
 //    }
+
+
 
 
 }

@@ -7,15 +7,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.time.Duration;
 
 public class RadWorklistStudies extends BaseClass {
 
-    String PatientID = "694435";
+    String PatientID = "695545";
    // String PrelimPatientID = "688365";
 
     @Test (priority = 0)
-    public void ValidateToCreatePrelimReport() throws InterruptedException {
+    public void NavigateReprtingForm() throws InterruptedException {
         lp.radVijayLogin();
         db.clickOnWorklistArchive();
         rw.clickOnLast15Days();
@@ -24,6 +25,19 @@ public class RadWorklistStudies extends BaseClass {
         rw.findTotalNosRow();
         rw.checkStatusAndNavigate();
         Thread.sleep(2000);
+    }
+
+
+    @Test (priority = 1)
+    public void ValidateToCreatePrelimReport() throws InterruptedException, IOException {
+//        lp.radVijayLogin();
+//        db.clickOnWorklistArchive();
+//        rw.clickOnLast15Days();
+//        rw.searchPatient(PatientID);
+//        Thread.sleep(2000);
+//        rw.findTotalNosRow();
+//        rw.checkStatusAndNavigate();
+//        Thread.sleep(2000);
         Re.verifyPatientTab();
         Re.openPrelimReport();
         Re.AddPrelimContent();
@@ -32,8 +46,8 @@ public class RadWorklistStudies extends BaseClass {
         Screenshot.takeScreenshot(driver);
     }
 
-    @Test (priority = 1)
-    public void ValidateToCreateFinalReportAndSave() throws InterruptedException {
+    @Test (priority = 2)
+    public void ValidateToCreateFinalReportAndSave() throws InterruptedException, IOException {
         Re.createFinalReport();
         Thread.sleep(1000);
         Re.selectTemplate();
@@ -44,8 +58,8 @@ public class RadWorklistStudies extends BaseClass {
         Screenshot.takeScreenshot(driver);
     }
 
-   @Test (priority = 2)
-    public void ValidateToAddNewReportAndDraft() throws InterruptedException {
+   @Test (priority = 3)
+    public void ValidateToAddNewReportAndDraft() throws InterruptedException, IOException {
         Re.addNewReport();
        Thread.sleep(1000);
        Re.selectTemplate();
@@ -56,8 +70,8 @@ public class RadWorklistStudies extends BaseClass {
        Screenshot.takeScreenshot(driver);
     }
 
-    @Test (priority = 3)
-    public void ValidateToAddNewReportAndReview() throws InterruptedException {
+    @Test (priority = 4)
+    public void ValidateToAddNewReportAndReview() throws InterruptedException, IOException {
         Re.addNewReport();
         Thread.sleep(2000);
         Re.selectTemplate();
@@ -65,22 +79,42 @@ public class RadWorklistStudies extends BaseClass {
         Re.saveReport();
         Re.DraftReport();
         Re.SignReport();
-        Re.PrintPreview();
+        //Re.PrintPreview();
         Screenshot.takeScreenshot(driver);
     }
 
-    @Test (priority = 4)
-    public void ValidateToClickMultipleReports() throws InterruptedException {
-         lp.radVijayLogin();
-        db.clickOnWorklistArchive();
-        rw.clickOnLast15Days();
-        rw.searchPatient(PatientID);
-        Thread.sleep(2000);
-        rw.findTotalNosRow();
-        rw.checkStatusAndNavigate();
-        Thread.sleep(2000);
+    @Test (priority = 5)
+    public void ValidateToClickMultipleReports() throws InterruptedException, IOException {
+
+//        lp.radVijayLogin();
+//        db.clickOnWorklistArchive();
+//        rw.clickOnLast15Days();
+//        rw.searchPatient(PatientID);
+//        Thread.sleep(2000);
+//        rw.findTotalNosRow();
+//        rw.checkStatusAndNavigate();
+//        Thread.sleep(2000);
         Re.verifyPatientTab();
-        Re.getReportRows();
+        Re.ClickOnReport("DRAFTED");
+        Re.saveReport();
+        Thread.sleep(2000);
+        Re.ClickOnReport("REVIEWED");
+        // Thread.sleep(2000);
+       // Re.ClickOnReport("Saved");
+        Screenshot.takeScreenshot(driver);
+    }
+
+    @Test (priority = 6)
+    public void ValidateToSwitchDraftedAndRevieweAndEdit() throws InterruptedException, IOException {
+       // Re.verifyPatientTab();
+        Re.ClickOnReport("DRAFTED");
+        Re.saveReport();
+        Re.SignReport();
+        Re.PrintPreview();
+        Re.EditTheReport();
+        // Thread.sleep(2000);
+        // Re.ClickOnReport("Saved");
+        Screenshot.takeScreenshot(driver);
     }
 
 

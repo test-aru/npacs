@@ -6,15 +6,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
 
 public class Screenshot {
 
-   public static void takeScreenshot(WebDriver driver) throws InterruptedException {
+   public static void takeScreenshot(WebDriver driver) throws InterruptedException, IOException {
        Thread.sleep(3000);
        try {
+           System.out.println("Test Passed");
+       }
+       catch (Exception e) {
+          System.out.println("Test Failed : "+e.getMessage()) ;
+       } finally{
            // Check if the driver is not null and supports taking screenshots
            if (driver != null && driver instanceof TakesScreenshot screenshotDriver) {
 
@@ -36,9 +42,6 @@ public class Screenshot {
            } else {
                System.out.println("WebDriver is null or does not support taking screenshots.");
            }
-       }
-       catch (Exception e) {
-           e.printStackTrace();
        }
 
    }
