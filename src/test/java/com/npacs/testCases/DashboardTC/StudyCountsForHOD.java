@@ -4,9 +4,12 @@ import com.npacs.pageObjects.DashboardElements;
 import com.npacs.pageObjects.LoginPageElements;
 import com.npacs.pageObjects.RadWorklistElements;
 import com.npacs.testCases.BaseClass;
+import com.npacs.utilities.Screenshot;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -22,7 +25,7 @@ public class StudyCountsForHOD extends BaseClass{
 
 
     @Test (priority = 1)
-    public void VerifyLastWeekTotalStudies() throws InterruptedException {
+    public void VerifyLastWeekTotalStudies() throws InterruptedException, IOException {
         DashboardElements DE = new DashboardElements(driver);
         RadWorklistElements RW = new RadWorklistElements(driver);
         RW.clickOnLastWeek();
@@ -36,11 +39,11 @@ public class StudyCountsForHOD extends BaseClass{
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
         System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
-
+        Screenshot.takeScreenshot(driver);
     }
 
     @Test (priority = 2)
-    public void VerifyThisWeekTotalStudies() throws InterruptedException {
+    public void VerifyThisWeekTotalStudies() throws InterruptedException, IOException {
         driver.navigate().back();
         DashboardElements DE = new DashboardElements(driver);
         RadWorklistElements RW = new RadWorklistElements(driver);
@@ -55,6 +58,7 @@ public class StudyCountsForHOD extends BaseClass{
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
         System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
+        Screenshot.takeScreenshot(driver);
     }
 
     @Test (priority = 3)

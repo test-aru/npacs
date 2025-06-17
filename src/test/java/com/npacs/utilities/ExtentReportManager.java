@@ -12,6 +12,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -21,6 +22,7 @@ public class ExtentReportManager implements ITestListener {
     public ExtentReports extent;
     public ExtentTest test;
     String repName;
+    public WebDriver driver;
 
     public void onStart(ITestContext context) {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -59,7 +61,15 @@ public class ExtentReportManager implements ITestListener {
         test = extent.createTest(result.getName());
         test.log(Status.FAIL, "Test case FAILED is : " + result.getName());
         test.log(Status.FAIL, "Test case FAILED cause is : " + result.getThrowable());
-        test.fail("Test Failed", MediaEntityBuilder.createScreenCaptureFromPath("img.png").build());
+
+        try{
+
+            String screenShotPath = Screenshot.takeScreenshot(driver);
+            test.fail("Screenshot of Failure: ", MediaEntityBuilder.createScreenCaptureFromPath(screenShotPath).build());
+
+        } catch (IOException | InterruptedException e) {
+            test.fail("Failed to attach screenshot: " + e.getMessage());
+        }
     }
 
     public void onTestSkipped(ITestResult result) {

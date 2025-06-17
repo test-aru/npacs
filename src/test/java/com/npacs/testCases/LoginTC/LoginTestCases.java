@@ -17,17 +17,17 @@ import java.io.IOException;
 public class LoginTestCases extends BaseClass {
 
 
-    @Test(priority=8)
+    @Test(priority=8, groups = {"smoke"})
     public void loginWithValidUsernameAndPassword() throws InterruptedException, IOException {
         LoginAssertions la=new LoginAssertions(driver);
         LoginPageElements lp=new LoginPageElements(driver);
         la.navigatedToLoginScreen();
         ReadExcel obj = new ReadExcel();
         String[] crdentials = obj.getUsernamePasswordFromExcel(1);
-        String username = crdentials[0];
-        String password = crdentials[1];
-       // String username = "raster";
-       // String password = "raster";
+      //  String username = crdentials[0];
+       // String password = crdentials[1];
+        String username = "raster";
+        String password = "raster";
         lp.loginApplication(username,password);
         //Screenshot.takeScreenshot(driver);
         la.navigatedToDashboardScreen();
