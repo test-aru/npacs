@@ -29,7 +29,6 @@ public class LoginTestCases extends BaseClass {
         String username = "raster";
         String password = "raster";
         lp.loginApplication(username,password);
-        //Screenshot.takeScreenshot(driver);
         la.navigatedToDashboardScreen();
         //db.RefreshPage();
     }
@@ -46,7 +45,6 @@ public class LoginTestCases extends BaseClass {
        // String username = "raster0";
       //  String password = "raster";
         lp.loginApplication(username,password);
-        Screenshot.takeScreenshot(driver);
         la.navigatedToDashboardScreen();
         db.RefreshPage();
     }

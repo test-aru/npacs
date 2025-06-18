@@ -42,7 +42,7 @@ public class ReportEditorForm extends BaseClass {
         Thread.sleep(2000);
         Re.EnterMetaTagContent();
         Thread.sleep(1000);
-        Screenshot.takeScreenshot(driver);
+
        // Re.saveReport();
        // Thread.sleep(1000);
       //  Re.PrintPreview();

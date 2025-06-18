@@ -12,9 +12,15 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import javax.management.relation.RelationSupport;
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ExtentReportManager implements ITestListener {
 
@@ -23,6 +29,7 @@ public class ExtentReportManager implements ITestListener {
     public ExtentTest test;
     String repName;
     public WebDriver driver;
+    public Map<String, ExtentTest> classTestMap = new HashMap<>(); // 🔑 Class name -> ExtentTest (parent)
 
     public void onStart(ITestContext context) {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -35,51 +42,96 @@ public class ExtentReportManager implements ITestListener {
 
         extent = new ExtentReports();
         extent.attachReporter(sparkReporter);
-
+        extent.setSystemInfo("Application", "NPACS");
+        extent.setSystemInfo("Module", "Reporting");
         extent.setSystemInfo("Server", "Testing Server (112)");
-        extent.setSystemInfo("Tester", "Arunkarthick");
         extent.setSystemInfo("Browser", "Chrome_Version_136");
         extent.setSystemInfo("Machine", "Linux");
+        extent.setSystemInfo("Tester", "Arunkarthick");
 
-        System.out.println("Test Execution is Started..............");
+        //get os and browser value dynamically from the xml file
+//        String os = context.getCurrentXmlTest().getParameter("os");
+//        extent.setSystemInfo("Operating System", os);
+//        String browser  = context.getCurrentXmlTest().getParameter("browser");
+//        extent.setSystemInfo("Browser", browser);
+
+        //get testng group from the xml file and attach it to report
+        List<String> includedGroups = context.getCurrentXmlTest().getIncludedGroups();
+        if(!includedGroups.isEmpty()){
+            extent.setSystemInfo("Groups", includedGroups.toString());
+        }
 
     }
 
 
     public void onTestStart(ITestResult result) {
-        System.out.println("-----------------------------Test Started----------------------------------");
+        String className = result.getTestClass().getRealClass().getSimpleName();
+        String methodName = result.getMethod().getMethodName();
+
+        // Create parent class node if not present
+        if(!classTestMap.containsKey(className)){
+            ExtentTest parentTest = extent.createTest(className);
+            classTestMap.put(className, parentTest);
+        }
+        test = classTestMap.get(className).createNode(methodName);
+
+        System.out.println("------------ Test Started: " + methodName + " ------------");
     }
 
     public void onTestSuccess(ITestResult result) {
         System.out.println("Test Passed..............");
-        test = extent.createTest(result.getName());
+        test = extent.createTest(result.getTestClass().getName());
         test.log(Status.PASS, "Test case PASSED is : " + result.getName());
+  //      methodLevelTest.get().log(Status.PASS, "Test PASSED : "+ result.getName());
+
     }
 
     public void onTestFailure(ITestResult result) {
         System.out.println("Test Failed..............");
-        test = extent.createTest(result.getName());
+        test = extent.createTest(result.getTestClass().getName());
         test.log(Status.FAIL, "Test case FAILED is : " + result.getName());
         test.log(Status.FAIL, "Test case FAILED cause is : " + result.getThrowable());
+//        ExtentTest child = methodLevelTest.get();
+//        child.log(Status.FAIL, "Test case FAILED : "+ result.getName());
+//        child.log(Status.FAIL, result.getThrowable());
 
         try{
-
-            String screenShotPath = Screenshot.takeScreenshot(driver);
-            test.fail("Screenshot of Failure: ", MediaEntityBuilder.createScreenCaptureFromPath(screenShotPath).build());
-
-        } catch (IOException | InterruptedException e) {
-            test.fail("Failed to attach screenshot: " + e.getMessage());
+            String imgPath = new Screenshot().captureScreenshot(result.getName());
+            if(imgPath != null) {
+                test.fail("Screenshot of failure:", MediaEntityBuilder.createScreenCaptureFromPath(imgPath).build());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
     public void onTestSkipped(ITestResult result) {
         System.out.println("Test Skipped..............");
-        test = extent.createTest(result.getName());
+        test = extent.createTest(result.getTestClass().getName());
         test.log(Status.SKIP, "Test case SKIPPED is : " + result.getName());
+        test.log(Status.INFO, result.getThrowable().getMessage());
+//        ExtentTest child = methodLevelTest.get();
+//        child.log(Status.FAIL, "Test SKIPPED : "+ result.getName());
+//        child.log(Status.INFO, result.getThrowable().getMessage());
     }
 
     public void onFinish(ITestContext context) {
         extent.flush();
+
+        //To Automatically open the Report in Desktop
+        String reportPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + repName;
+        File reportFile = new File(reportPath);
+
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().browse(reportFile.toURI());
+            } catch (IOException e) {
+                System.err.println("Failed to open Extent Report: " + e.getMessage());
+            }
+        } else {
+            System.err.println("Desktop operations are not supported on this environment.");
+        }
+
     }
 
 }

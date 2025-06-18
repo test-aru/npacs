@@ -43,7 +43,7 @@ public class RadWorklistStudies extends BaseClass {
         Re.AddPrelimContent();
         Re.SignReport();
         Re.PrintPreview();
-        Screenshot.takeScreenshot(driver);
+
     }
 
     @Test (priority = 2)
@@ -55,7 +55,7 @@ public class RadWorklistStudies extends BaseClass {
         Re.saveReport();
         Thread.sleep(1000);
         Re.PrintPreview();
-        Screenshot.takeScreenshot(driver);
+
     }
 
    @Test (priority = 3)
@@ -67,7 +67,7 @@ public class RadWorklistStudies extends BaseClass {
        Re.saveReport();
        Re.DraftReport();
        Re.PrintPreview();
-       Screenshot.takeScreenshot(driver);
+
     }
 
     @Test (priority = 4)
@@ -80,7 +80,7 @@ public class RadWorklistStudies extends BaseClass {
         Re.DraftReport();
         Re.SignReport();
         //Re.PrintPreview();
-        Screenshot.takeScreenshot(driver);
+
     }
 
     @Test (priority = 5)
@@ -101,7 +101,7 @@ public class RadWorklistStudies extends BaseClass {
         Re.ClickOnReport("REVIEWED");
         // Thread.sleep(2000);
        // Re.ClickOnReport("Saved");
-        Screenshot.takeScreenshot(driver);
+
     }
 
     @Test (priority = 6)
@@ -114,7 +114,7 @@ public class RadWorklistStudies extends BaseClass {
         Re.EditTheReport();
         // Thread.sleep(2000);
         // Re.ClickOnReport("Saved");
-        Screenshot.takeScreenshot(driver);
+
     }
 
 

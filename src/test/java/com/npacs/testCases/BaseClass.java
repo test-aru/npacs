@@ -11,7 +11,7 @@ import org.testng.annotations.*;
 
 public class BaseClass   {
 
-    public WebDriver driver;
+    public static WebDriver driver;
     public ReadConfig config = new ReadConfig();
 
     protected ArchivedStudiesElements Ae;
