@@ -79,21 +79,13 @@ public class ExtentReportManager implements ITestListener {
     }
 
     public void onTestSuccess(ITestResult result) {
-        System.out.println("Test Passed..............");
-        test = extent.createTest(result.getTestClass().getName());
         test.log(Status.PASS, "Test case PASSED is : " + result.getName());
-  //      methodLevelTest.get().log(Status.PASS, "Test PASSED : "+ result.getName());
 
     }
 
     public void onTestFailure(ITestResult result) {
-        System.out.println("Test Failed..............");
-        test = extent.createTest(result.getTestClass().getName());
         test.log(Status.FAIL, "Test case FAILED is : " + result.getName());
         test.log(Status.FAIL, "Test case FAILED cause is : " + result.getThrowable());
-//        ExtentTest child = methodLevelTest.get();
-//        child.log(Status.FAIL, "Test case FAILED : "+ result.getName());
-//        child.log(Status.FAIL, result.getThrowable());
 
         try{
             String imgPath = new Screenshot().captureScreenshot(result.getName());
@@ -106,13 +98,8 @@ public class ExtentReportManager implements ITestListener {
     }
 
     public void onTestSkipped(ITestResult result) {
-        System.out.println("Test Skipped..............");
-        test = extent.createTest(result.getTestClass().getName());
         test.log(Status.SKIP, "Test case SKIPPED is : " + result.getName());
         test.log(Status.INFO, result.getThrowable().getMessage());
-//        ExtentTest child = methodLevelTest.get();
-//        child.log(Status.FAIL, "Test SKIPPED : "+ result.getName());
-//        child.log(Status.INFO, result.getThrowable().getMessage());
     }
 
     public void onFinish(ITestContext context) {
