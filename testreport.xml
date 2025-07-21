@@ -9,7 +9,7 @@
     <test name="BasicTest">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <class name="com.npacs.testCases.DashboardTC.StudyCountsForAdmin"/>
+            <class name="com.npacs.testCases.WorklistTC.RadWorklistStudies"/>
            <!-- <class name="com.npacs.testCases.DashboardTC.StudyCountsForHOD"/> -->
         </classes>
     </test>

@@ -3,6 +3,7 @@ import com.npacs.assertions.LoginAssertions;
 import com.npacs.pageObjects.*;
 import com.npacs.testCases.BaseClass;
 import com.npacs.utilities.Screenshot;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -12,14 +13,14 @@ import java.time.Duration;
 
 public class RadWorklistStudies extends BaseClass {
 
-    String PatientID = "695545";
+    String PatientID = "275625";
    // String PrelimPatientID = "688365";
 
-    @Test (priority = 0)
+    @Test (priority = 0, groups = {"smoke"})
     public void NavigateReprtingForm() throws InterruptedException {
         lp.radVijayLogin();
         db.clickOnWorklistArchive();
-        rw.clickOnLast15Days();
+        rw.clickOnLast30Days();
         rw.searchPatient(PatientID);
         Thread.sleep(2000);
         rw.findTotalNosRow();
@@ -28,8 +29,8 @@ public class RadWorklistStudies extends BaseClass {
     }
 
 
-    @Test (priority = 1)
-    public void ValidateToCreatePrelimReport() throws InterruptedException, IOException {
+    @Test (priority = 1, groups = {"smoke"})
+    public void ValidateToSavePrelimReport() throws InterruptedException, IOException {
 //        lp.radVijayLogin();
 //        db.clickOnWorklistArchive();
 //        rw.clickOnLast15Days();
@@ -41,51 +42,12 @@ public class RadWorklistStudies extends BaseClass {
         Re.verifyPatientTab();
         Re.openPrelimReport();
         Re.AddPrelimContent();
-        Re.SignReport();
-        Re.PrintPreview();
-
-    }
-
-    @Test (priority = 2)
-    public void ValidateToCreateFinalReportAndSave() throws InterruptedException, IOException {
-        Re.createFinalReport();
-        Thread.sleep(1000);
-        Re.selectTemplate();
-        Thread.sleep(3000);
         Re.saveReport();
-        Thread.sleep(1000);
-        Re.PrintPreview();
-
+       // Re.PrintPreview();
     }
 
-   @Test (priority = 3)
-    public void ValidateToAddNewReportAndDraft() throws InterruptedException, IOException {
-        Re.addNewReport();
-       Thread.sleep(1000);
-       Re.selectTemplate();
-       Thread.sleep(3000);
-       Re.saveReport();
-       Re.DraftReport();
-       Re.PrintPreview();
-
-    }
-
-    @Test (priority = 4)
-    public void ValidateToAddNewReportAndReview() throws InterruptedException, IOException {
-        Re.addNewReport();
-        Thread.sleep(2000);
-        Re.selectTemplate();
-        Thread.sleep(3000);
-        Re.saveReport();
-        Re.DraftReport();
-        Re.SignReport();
-        //Re.PrintPreview();
-
-    }
-
-    @Test (priority = 5)
-    public void ValidateToClickMultipleReports() throws InterruptedException, IOException {
-
+    @Test (priority = 2, groups = {"smoke"})
+    public void ValidateToDiscardSavedPrelimReport() throws InterruptedException, IOException {
 //        lp.radVijayLogin();
 //        db.clickOnWorklistArchive();
 //        rw.clickOnLast15Days();
@@ -95,62 +57,128 @@ public class RadWorklistStudies extends BaseClass {
 //        rw.checkStatusAndNavigate();
 //        Thread.sleep(2000);
         Re.verifyPatientTab();
-        Re.ClickOnReport("DRAFTED");
-        Re.saveReport();
-        Thread.sleep(2000);
-        Re.ClickOnReport("REVIEWED");
-        // Thread.sleep(2000);
-       // Re.ClickOnReport("Saved");
+        Re.DiscardReport(Re.PrelimReportRow3dots, true);
+    }
 
+    @Test (priority = 3)
+    public void ValidateToReviewPrelimReport() throws InterruptedException {
+        Re.verifyPatientTab();
+        Re.openPrelimReport();
+        Re.AddPrelimContent();
+        Re.saveReport();
+        Thread.sleep(3000);
+        Re.SignReport();
+      //  Re.PrintPreview();
+    }
+
+    @Test (priority = 4, groups = {"smoke"})
+    public void ValidateToDiscardReviewedPrelimReport() throws InterruptedException, IOException {
+ //       Re.verifyPatientTab();
+        Re.DiscardReport(Re.PrelimReportRow3dots, false);
+    }
+
+    @Test (priority = 5, groups = {"smoke"})
+    public void ValidateToCreateFinalReportAndSave() throws InterruptedException, IOException {
+        Re.createFinalReport();
+        Thread.sleep(1000);
+        Re.selectTemplate();
+        Thread.sleep(3000);
+        Re.saveReport();
+        Thread.sleep(1000);
+     //   Re.PrintPreview();
     }
 
     @Test (priority = 6)
-    public void ValidateToSwitchDraftedAndRevieweAndEdit() throws InterruptedException, IOException {
-       // Re.verifyPatientTab();
-        Re.ClickOnReport("DRAFTED");
-        Re.saveReport();
-        Re.SignReport();
-        Re.PrintPreview();
-        Re.EditTheReport();
-        // Thread.sleep(2000);
-        // Re.ClickOnReport("Saved");
-
+    public void ValidateToDiscardSavedFinalReport() throws InterruptedException {
+    //    Re.verifyPatientTab();
+        Re.DiscardReport(Re.SavedReportRow3dots, true);
     }
 
+   @Test (priority = 7, groups = {"smoke"})
+    public void ValidateToAddNewReportAndDraft() throws InterruptedException, IOException {
+        Re.addNewReport();
+       Thread.sleep(1000);
+       Re.selectTemplate();
+       Thread.sleep(3000);
+       Re.saveReport();
+       Re.DraftReport();
+       Re.PrintPreview();
+    }
 
+    @Test (priority = 8)
+    public void ValidateToDiscardDraftedFinalReport() throws InterruptedException {
+        Re.DiscardReport(Re.DraftedReportRow3dots, true);
+    }
 
+    @Test (priority = 9, groups = {"smoke"})
+    public void ValidateToAddNewReportAndReview() throws InterruptedException, IOException {
+        Re.addNewReport();
+        Thread.sleep(2000);
+        Re.selectTemplate();
+        Thread.sleep(3000);
+        Re.saveReport();
+        Re.DraftReport();
+        Re.SignReport();
+        //Re.PrintPreview();
+    }
 
+    @Test (priority = 10)
+    public void ValidateToDiscardReviewedReport() throws InterruptedException {
+             Re.DiscardReport(Re.ReviewedReportRow3dots, false);
+    }
 
-        public void ValidateToReviewFinalReport() throws InterruptedException {
-//        lp.radVijayLogin();
-//        db.clickOnWorklistArchive();
-//        rw.clickOnLast15Days();
-//        rw.searchPatient(PatientID);
+    @Test (priority = 11, groups = {"smoke"})
+    public void ValidateToEditReviewdReportAndSaveAndReConfirmed() throws InterruptedException {
+        Re.EditTheReport();
+        Re.saveReport();
+        Thread.sleep(3000);
+        Re.SignReport();
+    }
+
+//    @Test (priority = 18, groups = {"smoke"})
+//    public void ValidateToClickMultipleReports() throws InterruptedException, IOException {
+////        lp.radVijayLogin();
+////        db.clickOnWorklistArchive();
+////        rw.clickOnLast15Days();
+////        rw.searchPatient(PatientID);
+////        Thread.sleep(2000);
+////        rw.findTotalNosRow();
+////        rw.checkStatusAndNavigate();
+////        Thread.sleep(2000);
+////        Re.verifyPatientTab();
+//        Re.ClickOnReport("DRAFTED");
+//        Re.saveReport();
 //        Thread.sleep(2000);
-//        rw.findTotalNosRow();
-//        rw.checkStatusAndNavigate();
-//        Thread.sleep(2000);
-//        Re.verifyPatientTab();
-//            Re.selectTemplate();
-//            Thread.sleep(2000);
-//            Re.saveReport();
-//            Re.DraftReport();
-//            Re.SignReport();
-//            Re.PrintPreview();
-//            Re.EditTheReport();
-//        Re.backToWorklist();
-//        rw.clickOnLast15Days();
-//        rw.searchPatient(PatientID);
-//        rw.getResultStatus();
-//            Re.saveReport();
-//            Re.SignReport();
-//        Re.backToWorklist();
-//        rw.clickOnLast15Days();
-//        rw.searchPatient(PatientID);
-//        rw.getResultStatus();
-//            db.Logout();
-        }
+//        Re.ClickOnReport("REVIEWED");
+//        // Thread.sleep(2000);
+//       // Re.ClickOnReport("Saved");
+//    }
 
+    @Test (priority = 12, groups = {"smoke"})
+    public void ValidateToSaveAddendumReport() throws InterruptedException, IOException {
+        Re.addAddendumReport();
+        Re.saveReport();
+    }
+
+    @Test (priority = 13)
+    public void ValidateToDiscardSavedAddendumReport() throws InterruptedException {
+        Re.verifyPatientTab();
+        Re.DiscardReport(Re.AddendumReportRow3dots, true);
+    }
+
+    @Test (priority = 14, groups = {"smoke"})
+    public void ValidateToReviewAddendumReport() throws InterruptedException, IOException {
+        Re.addAddendumReport();
+        Re.saveReport();
+        Thread.sleep(1000);
+        Re.SignReport();
+    }
+
+    @Test (priority = 15)
+    public void ValidateToDiscardReviewedAddendumReport() throws InterruptedException {
+        Re.verifyPatientTab();
+        Re.DiscardReport(Re.AddendumReportRow3dots, false);
+    }
 
 
 

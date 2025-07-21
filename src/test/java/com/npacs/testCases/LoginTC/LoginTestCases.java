@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import com.npacs.utilities.ReadExcel;
+import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
 
@@ -17,11 +18,11 @@ import java.io.IOException;
 public class LoginTestCases extends BaseClass {
 
 
-    @Test(priority=8, groups = {"smoke"})
+    @Test(priority=8,groups = {"smoke"} )
     public void loginWithValidUsernameAndPassword() throws InterruptedException, IOException {
         LoginAssertions la=new LoginAssertions(driver);
         LoginPageElements lp=new LoginPageElements(driver);
-        la.navigatedToLoginScreen();
+        la.AssertLoginScreen();
         ReadExcel obj = new ReadExcel();
         String[] crdentials = obj.getUsernamePasswordFromExcel(1);
       //  String username = crdentials[0];
@@ -29,14 +30,15 @@ public class LoginTestCases extends BaseClass {
         String username = "raster";
         String password = "raster";
         lp.loginApplication(username,password);
-        la.navigatedToDashboardScreen();
-        //db.RefreshPage();
+        Thread.sleep(1000);
+        la.AssertDashboardScreen();
+        db.RefreshPage();
     }
 
-    @Test (priority=1)
+    @Test (priority=1 )
     public void loginWithInValidUsernameAndValidPassword() throws InterruptedException, IOException {
         LoginAssertions la=new LoginAssertions(driver);
-        la.navigatedToLoginScreen();
+        la.AssertLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
         ReadExcel obj = new ReadExcel();
         String[] crdentials = obj.getUsernamePasswordFromExcel(2);
@@ -45,14 +47,13 @@ public class LoginTestCases extends BaseClass {
        // String username = "raster0";
       //  String password = "raster";
         lp.loginApplication(username,password);
-        la.navigatedToDashboardScreen();
         db.RefreshPage();
     }
 
     @Test (priority=2)
     public void loginWithValidUsernameAndInValidPassword() throws InterruptedException, IOException {
         LoginAssertions la=new LoginAssertions(driver);
-        la.navigatedToLoginScreen();
+        la.AssertLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
         ReadExcel obj = new ReadExcel();
         String[] crdentials = obj.getUsernamePasswordFromExcel(3);
@@ -61,7 +62,6 @@ public class LoginTestCases extends BaseClass {
        // String username = "raster";
        // String password = "raster0";
         lp.loginApplication(username,password);
-        la.navigatedToDashboardScreen();
         db.RefreshPage();
 
     }
@@ -69,7 +69,7 @@ public class LoginTestCases extends BaseClass {
     @Test (priority=3)
     public void loginWithInValidUsernameAndInValidPassword() throws InterruptedException, IOException {
         LoginAssertions la=new LoginAssertions(driver);
-        la.navigatedToLoginScreen();
+        la.AssertLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
         ReadExcel obj = new ReadExcel();
         String[] crdentials = obj.getUsernamePasswordFromExcel(4);
@@ -78,14 +78,13 @@ public class LoginTestCases extends BaseClass {
        // String username = "raster0";
        // String password = "raster0";
         lp.loginApplication(username,password);
-        la.navigatedToDashboardScreen();
         db.RefreshPage();
     }
 
     @Test (priority=4)
     public void loginWithUsernameAndPasswordInUpperCase() throws InterruptedException, IOException {
         LoginAssertions la=new LoginAssertions(driver);
-        la.navigatedToLoginScreen();
+        la.AssertLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
         ReadExcel obj = new ReadExcel();
         String[] crdentials = obj.getUsernamePasswordFromExcel(5);
@@ -94,14 +93,13 @@ public class LoginTestCases extends BaseClass {
       //  String username = "RASTER";
       //  String password = "RASTER";
         lp.loginApplication(username,password);
-        la.navigatedToDashboardScreen();
         db.RefreshPage();
     }
 
     @Test (priority=5)
     public void loginWithUsernameAndPasswordInSpecialChar() throws InterruptedException, IOException {
         LoginAssertions la=new LoginAssertions(driver);
-        la.navigatedToLoginScreen();
+        la.AssertLoginScreen();
        LoginPageElements lp=new LoginPageElements(driver);
         ReadExcel obj = new ReadExcel();
         String[] crdentials = obj.getUsernamePasswordFromExcel(6);
@@ -110,14 +108,13 @@ public class LoginTestCases extends BaseClass {
      //   String username = "RAS%^&#";
      //   String password = "RAS@!$%";
         lp.loginApplication(username,password);
-        la.navigatedToDashboardScreen();
         db.RefreshPage();
     }
 
     @Test (priority=6)
     public void loginWithUsernameAndPasswordIsEmpty() throws InterruptedException, IOException {
         LoginAssertions la=new LoginAssertions(driver);
-        la.navigatedToLoginScreen();
+        la.AssertLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
         ReadExcel obj = new ReadExcel();
         String[] crdentials = obj.getUsernamePasswordFromExcel(7);
@@ -126,14 +123,13 @@ public class LoginTestCases extends BaseClass {
       //  String username = "    ";
       //  String password = "    ";
         lp.loginApplication(username,password);
-        la.navigatedToDashboardScreen();
         db.RefreshPage();
     }
 
     @Test (priority=7)
     public void loginWithUsernameAndEmptyPassword() throws InterruptedException, IOException {
         LoginAssertions la=new LoginAssertions(driver);
-        la.navigatedToLoginScreen();
+        la.AssertLoginScreen();
         LoginPageElements lp=new LoginPageElements(driver);
         ReadExcel obj = new ReadExcel();
         String[] crdentials = obj.getUsernamePasswordFromExcel(8);
@@ -142,7 +138,6 @@ public class LoginTestCases extends BaseClass {
       //  String username = "raster";
       //  String password = "    ";
         lp.loginApplication(username,password);
-        la.navigatedToDashboardScreen();
         db.RefreshPage();
     }
 

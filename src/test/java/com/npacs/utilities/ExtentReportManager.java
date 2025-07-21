@@ -7,15 +7,21 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 //import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.HtmlEmail;
+import org.apache.commons.mail.ImageHtmlEmail;
+import org.apache.commons.mail.resolver.DataSourceUrlResolver;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import javax.activation.FileDataSource;
 import javax.management.relation.RelationSupport;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -80,11 +86,13 @@ public class ExtentReportManager implements ITestListener {
 
     public void onTestSuccess(ITestResult result) {
         test.log(Status.PASS, "Test case PASSED is : " + result.getName());
+        test.assignCategory(result.getMethod().getGroups());
 
     }
 
     public void onTestFailure(ITestResult result) {
         test.log(Status.FAIL, "Test case FAILED is : " + result.getName());
+        test.assignCategory(result.getMethod().getGroups());
         test.log(Status.FAIL, "Test case FAILED cause is : " + result.getThrowable());
 
         try{
@@ -98,6 +106,7 @@ public class ExtentReportManager implements ITestListener {
     }
 
     public void onTestSkipped(ITestResult result) {
+        test.assignCategory(result.getMethod().getGroups());
         test.log(Status.SKIP, "Test case SKIPPED is : " + result.getName());
         test.log(Status.INFO, result.getThrowable().getMessage());
     }
@@ -119,7 +128,28 @@ public class ExtentReportManager implements ITestListener {
             System.err.println("Desktop operations are not supported on this environment.");
         }
 
-    }
 
+        //To create mail and send
+//try{
+//    //URL url = new URL("file://"+".//reports//"+repName);
+//    File file = new File("reports/" + repName);
+//    HtmlEmail email = new HtmlEmail();
+//    email.setHostName("smtp.googlemail.com");
+//    email.setSmtpPort(465);
+//    email.setAuthenticator(new DefaultAuthenticator("arunkarthick.r@raster.in","Dec5@1998"));
+//    email.setSSLOnConnect(true);
+//    email.setFrom("arunkarthick.r@raster.in");
+//    email.setSubject("Automation Test Result");
+//    email.setHtmlMsg("<html><body><p>Please find Attached Report........</p></body></html>");
+//    email.setTextMsg("Please view the report in an HTML-compatible email client.");
+//    email.addTo("vigneswaran.p@raster.in");
+//    email.attach(new FileDataSource(file), repName, "Extent Automation report");
+//    email.send();
+//} catch (Exception e) {
+//    throw new RuntimeException(e);
+//}
+
+
+    }
 }
 

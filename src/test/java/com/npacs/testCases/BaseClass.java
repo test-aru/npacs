@@ -21,7 +21,7 @@ public class BaseClass   {
     protected ModularReportingElements Re;
 
 
-    @BeforeClass
+    @BeforeClass (groups = "smoke")
     public void setup() throws InterruptedException {
         driver= BrowserFactory.startApplication(driver,config.getBrowser(),config.getApplicationURL());
         Ae = new ArchivedStudiesElements(driver);
