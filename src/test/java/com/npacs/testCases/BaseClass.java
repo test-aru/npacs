@@ -1,5 +1,7 @@
 package com.npacs.testCases;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
 import com.npacs.assertions.LoginAssertions;
 import com.npacs.pageObjects.*;
 import com.npacs.utilities.BrowserFactory;
@@ -9,7 +11,7 @@ import org.testng.annotations.*;
 
 public class BaseClass   {
 
-    public WebDriver driver;
+    public static WebDriver driver;
     public ReadConfig config = new ReadConfig();
 
     protected ArchivedStudiesElements Ae;
@@ -19,8 +21,7 @@ public class BaseClass   {
     protected ModularReportingElements Re;
 
 
-
-    @BeforeClass
+    @BeforeClass (groups = "smoke")
     public void setup() throws InterruptedException {
         driver= BrowserFactory.startApplication(driver,config.getBrowser(),config.getApplicationURL());
         Ae = new ArchivedStudiesElements(driver);
@@ -34,6 +35,8 @@ public class BaseClass   {
 //    public void tearDown() throws InterruptedException{
 //        BrowserFactory.quitBrowser(driver);
 //    }
+
+
 
 
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="TestReportSuite">
+    
+    <listeners>
+        <listener class-name="com.npacs.utilities.ExtentReportManager"></listener>
+    </listeners>
+    
+    <test name="BasicTest">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.npacs.testCases.WorklistTC.RadWorklistStudies"/>
+           <!-- <class name="com.npacs.testCases.DashboardTC.StudyCountsForHOD"/> -->
+        </classes>
+    </test>
+</suite>

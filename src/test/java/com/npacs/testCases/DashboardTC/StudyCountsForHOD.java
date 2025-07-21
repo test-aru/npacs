@@ -4,9 +4,12 @@ import com.npacs.pageObjects.DashboardElements;
 import com.npacs.pageObjects.LoginPageElements;
 import com.npacs.pageObjects.RadWorklistElements;
 import com.npacs.testCases.BaseClass;
+import com.npacs.utilities.Screenshot;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -22,7 +25,7 @@ public class StudyCountsForHOD extends BaseClass{
 
 
     @Test (priority = 1)
-    public void VerifyLastWeekTotalStudies() throws InterruptedException {
+    public void VerifyLastWeekTotalStudies() throws InterruptedException, IOException {
         DashboardElements DE = new DashboardElements(driver);
         RadWorklistElements RW = new RadWorklistElements(driver);
         RW.clickOnLastWeek();
@@ -40,7 +43,7 @@ public class StudyCountsForHOD extends BaseClass{
     }
 
     @Test (priority = 2)
-    public void VerifyThisWeekTotalStudies() throws InterruptedException {
+    public void VerifyThisWeekTotalStudies() throws InterruptedException, IOException {
         driver.navigate().back();
         DashboardElements DE = new DashboardElements(driver);
         RadWorklistElements RW = new RadWorklistElements(driver);
@@ -55,6 +58,7 @@ public class StudyCountsForHOD extends BaseClass{
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(TotalStudiesCount, WorklistTotalCount);
         System.out.println("-----Last week study counts matched in both worklist and Dashboard!-----");
+
     }
 
     @Test (priority = 3)
@@ -321,9 +325,9 @@ public class StudyCountsForHOD extends BaseClass{
         int OpenedStudiesCountInMyStatus = DE.OpenedStudiesInMyStatus();
         DE.clickOnWorklistArchive();
         RW.clickOnThisWeek();
-        Thread.sleep(1000);
+       // Thread.sleep(1000);
         RW.ApplyOpenedStatus();
-        Thread.sleep(2000);
+     //   Thread.sleep(2000);
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(WorklistTotalCount, OpenedStudiesCountInMyStatus);
         System.out.println("-----This Week Opened study counts matched in both worklist and Dashboard!-----");
@@ -339,9 +343,9 @@ public class StudyCountsForHOD extends BaseClass{
         int DraftedStudiesCountInMyStatus = DE.DraftedStudiesInMyStatus();
         DE.clickOnWorklistArchive();
         RW.clickOnThisWeek();
-        Thread.sleep(1000);
+    //    Thread.sleep(1000);
         RW.ApplyDraftedStatus();
-        Thread.sleep(2000);
+    //    Thread.sleep(2000);
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(WorklistTotalCount, DraftedStudiesCountInMyStatus);
         System.out.println("-----This Week Drafted study counts matched in both worklist and Dashboard!-----");
@@ -357,9 +361,9 @@ public class StudyCountsForHOD extends BaseClass{
         int ReviewedStudiesCountInMyStatus = DE.DraftedStudiesInMyStatus();
         DE.clickOnWorklistArchive();
         RW.clickOnThisWeek();
-        Thread.sleep(1000);
+     //   Thread.sleep(1000);
         RW.ApplyReviewedStatus();
-        Thread.sleep(2000);
+     //   Thread.sleep(2000);
         int WorklistTotalCount = RW.getCountTotalFromPagination();
         Assert.assertEquals(WorklistTotalCount, ReviewedStudiesCountInMyStatus);
         System.out.println("-----This Week Reviewed study counts matched in both worklist and Dashboard!-----");

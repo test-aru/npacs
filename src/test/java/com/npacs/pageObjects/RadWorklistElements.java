@@ -222,9 +222,10 @@ public class RadWorklistElements {
 
     public void CriticalResultVerifyAndClickStudyRow() throws InterruptedException {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(20));
             WebElement criticalIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody[1]/tr[1]/td[5]/span/span[2]")));
-            //WebElement criticalIcon = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[5]/span/span[2]"));
+//            Thread.sleep(1000);
+//            WebElement criticalIcon = driver.findElement(By.xpath("//tbody[1]/tr[1]/td[5]/span/span[2]"));
             if (criticalIcon.isDisplayed()) {
                 StudyRow.click();
                 Thread.sleep(2000);
