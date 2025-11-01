@@ -10,16 +10,6 @@ pipeline {
             }
         }
 
-        stage('Verify Tooling') {
-            steps {
-                sh '''
-                    docker version
-                    docker info
-                    docker compose version
-                '''
-            }
-        }
-
         stage('Install Dependencies'){
           steps{
                     // Install dependencies
