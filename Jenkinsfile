@@ -1,17 +1,21 @@
 pipeline {
-  agent any
+    agent any
 
-    stage('Checkout_code'){
-        checkout scm
+    stages {
+        stage('Checkout_code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Verify Tooling') {
+            steps {
+                sh '''
+                    docker version
+                    docker info
+                    docker compose version
+                '''
+            }
+        }
     }
-
-    stage('Verify Tooling'){
-     sh '''
-         docker version
-         docker info
-         docker compose version
-         '''
-   }
-
-
 }
