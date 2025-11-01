@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+            docker { image 'maven:3.8.1-jdk-11' }
+        }
 
     stages {
         stage('Checkout_code') {
@@ -21,7 +23,7 @@ pipeline {
         stage('Install Dependencies'){
           steps{
                     // Install dependencies
-                          sh 'mvn install'
+                          sh 'mvn clean install'
           }
         }
 
