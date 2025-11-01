@@ -19,7 +19,7 @@ public class DashboardElements {
         PageFactory.initElements(driver, this);
     }
 
-
+    RadWorklistElements Rw;
 
     @FindBy(xpath = "/html/body/app-root/app-main-layout/app-side-nav/mat-sidenav-container/mat-sidenav-content/app-container/div/div/app-radiologist-dashboard/div/div[2]/div[1]/div[1]/div[1]/a[2]")
     WebElement worklistArchiveLink;
@@ -52,8 +52,46 @@ public class DashboardElements {
     @FindBy (xpath = "//mat-toolbar//div[2]//button[5]") WebElement ProfileIcon;
     @FindBy (xpath = "//mat-toolbar//div//div//button") WebElement LogoutButton;
     @FindBy (xpath = "//app-confirm-logout//div[3]//button[2]") WebElement OkButtonForLogout;
+//----------------------------------------------------EditRequest-----------------------------------------------------------------//
+    @FindBy (xpath = "//*[contains(text(),\"Report Edit Request\")]") WebElement EditRequestLinkInDashboard;
+    @FindBy (xpath = "//*[contains(text(),\"Received\")]") WebElement ReceivedTab;
+    @FindBy (xpath = "//app-edit-request-permission//tbody[@role=\"rowgroup\"]") WebElement EditRequests;
 
-    RadWorklistElements Rw;
+
+    public void VerifyEditRequest(String reportName, String patientName) throws InterruptedException {
+        EditRequestLinkInDashboard.click();
+        ReceivedTab.click();
+        WebElement REQS = driver.findElement(By.xpath("//app-edit-request-permission//tbody[@role=\"rowgroup\"]"));
+        List<WebElement> req = REQS.findElements(By.tagName("tr"));
+        System.out.println("No. of Request found : " + req.size());
+
+
+
+        for(WebElement request : req){
+            List<WebElement> cells = request.findElements(By.tagName("td"));
+            WebElement RepName = cells.get(0).findElement(By.tagName("span"));
+            WebElement patName = cells.get(2).findElement(By.tagName("span"));
+            String report_Name = RepName.getText();
+            String patient_Name = patName.getText();
+
+           // WebElement ActionDecline = cells.get(5).findElement(By.xpath("//a[1][@mattooltip=\"Decline Request\"]"));
+            System.out.println("Checking row: Report = " + report_Name + ", Patient = " + patient_Name);
+            if(report_Name.equalsIgnoreCase(reportName) && patient_Name.equalsIgnoreCase(patient_Name)){
+                Thread.sleep(1000);
+                WebElement ActionApprove = cells.get(5).findElement(By.xpath(".//a[@mattooltip=\"Approve Request\"]"));
+                ActionApprove.click();
+                break;
+            }
+
+
+        }
+
+    }
+
+
+
+
+
 
     public void clickOnAllTab() throws InterruptedException {
         Thread.sleep(2000);
@@ -298,9 +336,12 @@ public class DashboardElements {
         driver.navigate().refresh();
      }
 
-     public void Logout(){
+     public void Logout() throws InterruptedException {
+        Thread.sleep(1000);
         ProfileIcon.click();
+         Thread.sleep(1000);
          LogoutButton.click();
+         Thread.sleep(1000);
          OkButtonForLogout.click();
 
 

@@ -1,5 +1,6 @@
 package com.npacs.pageObjects;
 
+import org.apache.commons.compress.archivers.zip.X000A_NTFS;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -63,9 +64,134 @@ public class RadWorklistElements {
     @FindBy (xpath = "//*[@class=\"mt-30 critical-popup\"]") WebElement CriticalPopup;
     @FindBy (xpath = "//*[contains(text(),' Okay, Continue ')]") WebElement ContinueButton;
     @FindBy (xpath = "//tbody[1]/tr[1]/td[5]/span/span[2]") WebElement CriticalResultIcon;
+    @FindBy (xpath = "//*[@name=\"statusFilter\"]") WebElement StatusFilterInWorklist;
+    @FindBy (xpath = "//*[contains(text(),'REVIEWED ')]") WebElement  ReviewedStatusinStudyRow;
+    @FindBy (xpath = "//*[@class=\"signed-study p-r\"]") WebElement ReportDetailsPopup;
+    //---------------------------------Report Delivery elements-----------------------------------------------//
+    @FindBy (xpath = "//a[contains(text(),'Deliver')]") WebElement Deliverlink;
+    @FindBy (xpath = "//*[@formcontrolname=\"filmNo\"]") WebElement filmNos;
+    @FindBy (xpath = "//*[@formcontrolname=\"contactNo\"]") WebElement ContactNo;
+    @FindBy (xpath = "//*[@formcontrolname=\"issuedTo\"]") WebElement IssuedTo;
+    @FindBy (xpath = "//*[@formcontrolname=\"email\"]") WebElement PtEmail;
+    @FindBy (xpath = "//*[@formcontrolname=\"relationshipValue\"]") WebElement relationship;
+    @FindBy (xpath = "//*[@formcontrolname=\"reportRemark\"]") WebElement Remarks;
+    @FindBy (xpath = "//*[contains(text(),'Submit')]") WebElement SubmitButtonforDelivery;
+    @FindBy (xpath = "//*[contains(text(),'Cancel')]") WebElement CancelButtonforDelivery;
+    @FindBy (xpath = "//app-signed-preview//div//div[2]//div//div//table//tbody") WebElement ReportsInReportDetailsPopup;
+    @FindBy (xpath = "//app-signed-preview//div//h3//button//mat-icon[contains(text(),'close')][@role=\"img\"]") WebElement ReportDetailsClosebutton;
+    @FindBy (xpath = "//app-report-delivery-history//div//div[2]//div//div//div//img") WebElement DeliveryLogEditbutton;
+    @FindBy (xpath = "//app-report-delivery-history//div//h3//button//mat-icon") WebElement DeliveryLogClosebutton;
+    @FindBy (xpath = "//*[@formcontrolname=\"revokeCheck\"]") WebElement reportRevokeButton;
+    @FindBy (xpath = "//*[@formcontrolname=\"revokedReason\"]") WebElement revokeReasonField;
 
 
+    public void RevokeReportDelivery(String RevokeReason) throws InterruptedException {
+        Thread.sleep(2000);
+        reportRevokeButton.click();
+        revokeReasonField.sendKeys(RevokeReason);
+        SubmitButtonforDelivery.click();
+        System.out.println("Report delivery revoked!");
+    }
 
+
+    public void closeReportDetailsPopup() throws InterruptedException {
+        Thread.sleep(2000);
+        ReportDetailsClosebutton.click();
+    }
+
+
+    public void clickOnDeliveryLogEdit() throws InterruptedException {
+        Thread.sleep(2000);
+        DeliveryLogEditbutton.click();
+    }
+
+    public void closeDeliveryLogPopup() throws InterruptedException {
+        Thread.sleep(2000);
+        DeliveryLogClosebutton.click();
+    }
+
+    public void UpdateDeliveryLogDetails(String FilmNo) throws InterruptedException {
+        Thread.sleep(2000);
+        filmNos.clear();
+        Thread.sleep(1000);
+        filmNos.sendKeys(FilmNo);
+        Thread.sleep(1000);
+        SubmitButtonforDelivery.click();
+        System.out.println("Report Log is Updated!");
+    }
+
+
+    public void ApplyStatusFilterInWorklist(String status){
+        StatusFilterInWorklist.click();
+        WebElement AllStatus = driver.findElement(By.xpath("//div/div/div/div[@role=\"listbox\"]"));
+        List<WebElement> statusOptions = AllStatus.findElements(By.tagName("mat-option"));
+        //Print All status in the status filter
+        boolean statusFound = false;
+        for (WebElement option : statusOptions){
+            String optionText = option.getText().trim();
+            System.out.println(optionText);
+
+            if(optionText.equalsIgnoreCase(status)){
+                option.click();
+                statusFound = true;
+                break;
+            }
+        }
+        if(!statusFound){
+            throw new NoSuchElementException("Status" + status + "Not found");
+        }
+
+    }
+
+    public void openReportDetailsPopup() throws InterruptedException {
+        Thread.sleep(1000);
+        ReviewedStatusinStudyRow.click();
+    }
+
+    public void openDeliveryPopup() throws InterruptedException {
+           if(ReportDetailsPopup.isDisplayed()){
+               Thread.sleep(1000);
+               WebElement ReportsInReportDetailsPopup = driver.findElement(By.xpath("//app-signed-preview//div//div[2]//div//div//table//tbody"));
+               List<WebElement> report = ReportsInReportDetailsPopup.findElements(By.tagName("tr"));
+               System.out.println("No. of Reviewed reports found : " + report.size());
+
+               for (WebElement rep : report){
+                   List<WebElement> cells = rep.findElements(By.tagName("td"));
+                   WebElement reportName = cells.get(0);
+                   WebElement reviewDetails = cells.get(1);
+                   WebElement DeliveryStatusCell = cells.get(2);
+                   WebElement DeliveredIcon = cells.get(2).findElement(By.tagName("span"));
+                   String DeliveryStatus = DeliveryStatusCell.getText().trim();
+                 //  WebElement reportName = rep.findElement(By.tagName("td[1]"));
+                   System.out.println("Report Name : " + reportName.getText());
+                  // String DeliveryStatusLinkOrIcon = DeliveryStatus
+                   if(DeliveryStatus.equalsIgnoreCase("Delivery")){
+                       Deliverlink.click();
+
+                   }else{
+                       System.out.println("Report is already delivered! : " + reportName.getText());
+                       DeliveredIcon.click();
+
+                   }
+               }
+              // Deliverlink.click();
+              // System.out.println("Report is Delivered!");
+           }else{
+               System.out.println("Report details popup not opened!");
+           }
+    }
+
+    public void fillDeliveryDetailsAndSubmit(String FilmNo, String IssueTo, String ContantNum, String Email, String Relation, String Remark){
+        filmNos.sendKeys(FilmNo);
+        IssuedTo.sendKeys(IssueTo);
+        ContactNo.sendKeys(ContantNum);
+        PtEmail.sendKeys(Email);
+        relationship.sendKeys(Relation);
+        Remarks.sendKeys(Remark);
+        SubmitButtonforDelivery.click();
+        System.out.println("Report is Delivered!");
+
+    }
 
     public boolean validateReportingMenu() {
         String expectedMenu = " Reporting ";
@@ -200,24 +326,26 @@ public class RadWorklistElements {
             WebElement cell = colList.get(colIndex);
             String cellValue = cell.getAccessibleName();
             System.out.println("Cell value at row: " + rowIndex + ", column: " + colIndex + " is: " + cellValue);
+
+            if (cellValue != null && !cellValue.equals("UNASSIGNED ")) {
+                Thread.sleep(2000);
+                System.out.println("Study status is " + cellValue+"and Navigated to reporting screen.");
+                CriticalResultVerifyAndClickStudyRow();
+            }else{
+                System.out.println("Study status is " + cellValue);
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+                assignStudyToMe(1,6);
+                Thread.sleep(2000);
+                CriticalResultVerifyAndClickStudyRow();
+            }
         } else {
             System.out.println("Column index " + colIndex + " is out of bounds for the row " + rowIndex);
         }
 
         // navigate to study report if status is not UNASSIGNED
-        WebElement cell = colList.get(colIndex);
-        String cellValue = cell.getAccessibleName();
-        if (cellValue != null && !cellValue.equals("UNASSIGNED ")) {
-            Thread.sleep(2000);
-            System.out.println("Study status is " + cellValue+"and Navigated to reporting screen.");
-            CriticalResultVerifyAndClickStudyRow();
-        }else{
-            System.out.println("Study status is " + cellValue);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-            assignStudyToMe(1,6);
-            Thread.sleep(2000);
-            CriticalResultVerifyAndClickStudyRow();
-        }
+       // WebElement cell = colList.get(colIndex);
+      //  String cellValue = cell.getAccessibleName();
+
     }
 
     public void CriticalResultVerifyAndClickStudyRow() throws InterruptedException {
