@@ -51,6 +51,11 @@ public class LoginPageElements{
         loginApplication("user.0","user@0");
     }
 
+    public void radPoornaPrakashLogin() throws InterruptedException {
+        loginApplication("user.2","user@2");
+    }
+
+
     public void gatekeeperLogin() throws InterruptedException {
         loginApplication("user.201","user201");
     }

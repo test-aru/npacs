@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -13,10 +14,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ModularReportingElements {
 
@@ -74,118 +77,266 @@ public class ModularReportingElements {
     @FindBy (xpath = "//*[contains(text(),\"Discard\")]") WebElement DiscardButton;
     @FindBy (xpath = "//app-confirm-save/div/div[3]//button[1][contains(text(),\" No \")]") WebElement NoforDiscard;
     @FindBy (xpath = "//app-confirm-save/div/div[3]//button[2][contains(text(),\" Yes \")]") WebElement YesforDiscard;
+    //------------------------------------Edit rquest Elements----------------------------------------------------------------------------------//
+    @FindBy (xpath = "//*[contains(text(),'Request To Edit')]") WebElement RequestToEditButton;
+    @FindBy (xpath = "//app-edit-request//div//form//div[2]//p[contains(@class,'report-name')]") WebElement reportNameInRequestPopup;
+    @FindBy (xpath = "//*[@formcontrolname=\"selectedRadiologist\"]") WebElement RadiologistDropdownInRequestPopup;
+    @FindBy (xpath = "//*[contains(text(),' Dr. Vijay Sadasivam DMRD, DNB. ')]") WebElement RadiologistDrVijay;
+    @FindBy (xpath = "//*[@formcontrolname=\"requestReason\"]") WebElement RequestReason;
+    @FindBy (xpath = "//*[contains(text(),'Submit')]") WebElement SubmitButtonforReportRequest;
+    @FindBy (xpath = "//*[contains(text(),'Cancel')]") WebElement CancelButtonforReportRequest;
+    //-----------------------------------Calcium report Elements----------------------------------------------------------------------------
+    @FindBy (xpath = "//*[@formcontrolname=\"procedureInformation\"]") WebElement StudyTitle;
+    @FindBy (id = "clinicalIndication") WebElement ClinicalIndication;
+    @FindBy (xpath = "//*[@id=\"editorProtocol\"]/div/div/div") WebElement ProtocolEditorInFinalReport;
+    @FindBy (xpath = "//*[@id=\"protocol\"]") WebElement ProtocolInCalciumReport;
+    @FindBy (xpath = "//*[@formcontrolname=\"lm\"]") WebElement LeftMain;
+    @FindBy (xpath = "//*[@formcontrolname=\"lad\"]") WebElement LeftAntDesc;
+    @FindBy (xpath = "//*[@formcontrolname=\"lcx\"]") WebElement LeftCircum;
+    @FindBy (xpath = "//*[@formcontrolname=\"rca\"]") WebElement RightMain;
+    @FindBy (id = "agatstonScore") WebElement AgatstonScoreField;
+    @FindBy (id = "pericardium") WebElement PericardiumField;
+    @FindBy (id = "ascendingAorta" ) WebElement AscendingAorta;
+    @FindBy (id = "descendingAorta") WebElement DescendingAorta;
+    @FindBy (id = "pulmonaryTrunk") WebElement PulmonaryTrunk;
+    @FindBy (xpath = "//*[@formcontrolname=\"aortic\"]") WebElement AorticValueCalcification;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"aortic\"]//mat-radio-button[@value=\"No\"]") WebElement AorticValueNo;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"aortic\"]//mat-radio-button[@value=\"Mild\"]") WebElement AorticValueMild;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"aortic\"]//mat-radio-button[@value=\"Moderate\"]") WebElement AorticValueModerate;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"aortic\"]//mat-radio-button[@value=\"Severe\"]") WebElement AorticValueSevere;
+    @FindBy (xpath = "//*[@formcontrolname=\"thoracic\"]") WebElement ThoracicAorticCalcification;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"thoracic\"]//mat-radio-button[@value=\"No\"]") WebElement ThoracicValueNo;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"thoracic\"]//mat-radio-button[@value=\"Mild\"]") WebElement ThoracicValueMild;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"thoracic\"]//mat-radio-button[@value=\"Moderate\"]") WebElement ThoracicValueModerate;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"thoracic\"]//mat-radio-button[@value=\"Severe\"]") WebElement ThoracicValueSevere;
+    @FindBy (xpath = "//*[@formcontrolname=\"mitral\"]") WebElement MitralAnnularCalcification;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"mitral\"]//mat-radio-button[@value=\"No\"]") WebElement MitralValueNo;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"mitral\"]//mat-radio-button[@value=\"Mild\"]") WebElement MitralValueMild;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"mitral\"]//mat-radio-button[@value=\"Moderate\"]") WebElement MitralValueModerate;
+    @FindBy (xpath = "//mat-radio-group[@formcontrolname=\"mitral\"]//mat-radio-button[@value=\"Severe\"]") WebElement MitralValueSevere;
+    @FindBy (xpath = "//*[@formcontrolname=\"isNormal\"]") WebElement NormalCheckBox;
+    @FindBy (xpath = "//h3[2]//span[3]") WebElement StudyDescInReportingScreen;
+    @FindBy (xpath = "//*[contains(text(),' Create Calcium Report')]") WebElement CalciumReportLink;
 
-  //  WebElement ReportRows = driver.findElement(By.xpath("//mat-tab-body[2]//table[1]//tbody"));
-  //  List<WebElement> rows = ReportRows.findElements(By.tagName("tr"));
+    public double calculatedAgatstonScore;
 
-    public boolean checkDiscardOptionAndProceed(){
-        try{
-            DiscardButton.click();
-            System.out.println("Discard option is clicked!");
-            return true;
-        } catch (NoSuchElementException e) {
-            System.out.println("Discard option not found.");
-            return false;
+    public void NormalCalciumScoreReport(){
+        NormalCheckBox.click();
+    }
+
+
+
+
+    public void AddAdditionalFindings(String Pericardium, String AscAorta, String DescAorta, String PulmTrunk){
+        PericardiumField.clear();
+        PericardiumField.sendKeys(Pericardium);
+        AscendingAorta.clear();
+        AscendingAorta.sendKeys(AscAorta);
+        DescendingAorta.clear();
+        DescendingAorta.sendKeys(DescAorta);
+        PulmonaryTrunk.clear();
+        PulmonaryTrunk.sendKeys(PulmTrunk);
+        AddAorticExtraCoronaryCalcifications("Mild");
+        AddThoracicExtraCoronaryCalcifications("Moderate");
+        AddMitralExtraCoronaryCalcifications("No");
+    }
+
+
+    public void AddAorticExtraCoronaryCalcifications(String expectedValue){
+        WebElement AorticValueCalc = driver.findElement(By.xpath("//*[@formcontrolname=\"aortic\"]"));
+        List<WebElement> AorticValue = AorticValueCalc.findElements(By.tagName("mat-radio-button"));
+        for (WebElement element : AorticValue) {
+            String actualValue = element.findElement(By.cssSelector(".mat-radio-label-content")).getText().trim();
+            System.out.println("Actual value : "+ actualValue);
+            if (actualValue.equals(expectedValue)) {
+                element.click();
+                System.out.println("Clicked element with value: " + expectedValue);
+            }
+        }
+        System.out.println("No element found with value: " + expectedValue);
+    }
+
+    public void AddThoracicExtraCoronaryCalcifications(String expectedValue){
+        WebElement AorticValueCalc = driver.findElement(By.xpath("//*[@formcontrolname=\"aortic\"]"));
+        List<WebElement> AorticValue = AorticValueCalc.findElements(By.tagName("mat-radio-button"));
+        for (WebElement element : AorticValue) {
+            String actualValue = element.findElement(By.cssSelector(".mat-radio-label-content")).getText().trim();
+            System.out.println("Actual value : "+ actualValue);
+            if (actualValue.equals(expectedValue)) {
+                element.click();
+                System.out.println("Clicked element with value: " + expectedValue);
+            }
+        }
+        System.out.println("No element found with value: " + expectedValue);
+    }
+
+    public void AddMitralExtraCoronaryCalcifications(String expectedValue){
+        WebElement AorticValueCalc = driver.findElement(By.xpath("//*[@formcontrolname=\"aortic\"]"));
+        List<WebElement> AorticValue = AorticValueCalc.findElements(By.tagName("mat-radio-button"));
+        for (WebElement element : AorticValue) {
+            String actualValue = element.findElement(By.cssSelector(".mat-radio-label-content")).getText().trim();
+            System.out.println("Actual value : "+ actualValue);
+            if (actualValue.equals(expectedValue)) {
+                element.click();
+                System.out.println("Clicked element with value: " + expectedValue);
+            }
+        }
+        System.out.println("No element found with value: " + expectedValue);
+    }
+
+//    public void clickElementWithValue(List<WebElement> elements, String expectedValue) {
+//        for (WebElement element : elements) {
+//            String actualValue = element.getAttribute("value");
+//            if (actualValue != null && actualValue.equals(expectedValue)) {
+//                element.click();
+//                System.out.println("Clicked element with value: " + expectedValue);
+//                return;
+//            }
+//        }
+//        System.out.println("No element found with value: " + expectedValue);
+//    }
+
+    public void InputArteryValuesAndCalculateAgatstonScore(){
+        DecimalFormat df = new DecimalFormat("0.00");
+
+        double leftMainValue = ThreadLocalRandom.current().nextDouble(0.0, 400.0);
+        double leftAntDescValue = ThreadLocalRandom.current().nextDouble(0.0, 400.0);
+        double leftCircumValue = ThreadLocalRandom.current().nextDouble(0.0, 400.0);
+        double rightMainValue = ThreadLocalRandom.current().nextDouble(0.0, 400.0);
+        LeftMain.clear();
+        LeftMain.sendKeys(df.format(leftMainValue));
+        LeftAntDesc.clear();
+        LeftAntDesc.sendKeys(df.format(leftAntDescValue));
+        LeftCircum.clear();
+        LeftCircum.sendKeys(df.format(leftCircumValue));
+        RightMain.clear();
+        RightMain.sendKeys(df.format(rightMainValue));
+
+        double total = leftMainValue + leftAntDescValue + leftCircumValue + rightMainValue;
+        calculatedAgatstonScore = total;
+
+        System.out.println("LM : "+ df.format(leftMainValue));
+        System.out.println("LAD : "+ df.format(leftAntDescValue));
+        System.out.println("LCX : "+ df.format(leftCircumValue));
+        System.out.println("RCA : "+ df.format(rightMainValue));
+        System.out.println("Sum of all Artery values : "+ df.format(calculatedAgatstonScore));
+    }
+
+    public void getTotalAgatstonScoreInFormAndValidateAgatstonScore(){
+        String TotalAgatstonScoreIs = AgatstonScoreField.getAttribute("value");
+        double TotalAgatstonScore = Double.parseDouble(TotalAgatstonScoreIs);
+        System.out.println("Total Agatston score in Report Form is : " + TotalAgatstonScore);
+        double tolerance = 0.01;
+        if (Math.abs(TotalAgatstonScore - calculatedAgatstonScore) <= tolerance) {
+            System.out.println("Agatston Score matches!");
+        } else {
+            System.out.println("Agatston Score does NOT match!");
         }
     }
 
-//    public void DiscardSavedPrelimReport() throws InterruptedException {
-//        PrelimReportRow3dots.click();
-//        Thread.sleep(1000);
-//        checkDiscardOptionAndProceed();
-//        Thread.sleep(1000);
-//        YesforDiscard.click();
-//        System.out.println("Saved Prelim Report Discarded Successfully!");
-//    }
-//
-//    public void DiscardSavedAddendumReport() throws InterruptedException {
-//        AddendumReportRow3dots.click();
-//        Thread.sleep(1000);
-//        checkDiscardOptionAndProceed();
-//        Thread.sleep(1000);
-//        YesforDiscard.click();
-//        System.out.println("Saved Addendum Report Discarded Successfully!");
-//    }
-//
-//    public void DiscardSavedFinalReport() throws InterruptedException {
-//        SavedReportRow3dots.click();
-//        Thread.sleep(1000);
-//        checkDiscardOptionAndProceed();
-//        Thread.sleep(1000);
-//        YesforDiscard.click();
-//        System.out.println("Saved Final Report Discarded Successfully!");
-//    }
-//
-//    public void DiscardDraftedFinalReport() throws InterruptedException {
-//        DraftedReportRow3dots.click();
-//        Thread.sleep(1000);
-//        checkDiscardOptionAndProceed();
-//        Thread.sleep(1000);
-//        YesforDiscard.click();
-//        System.out.println("Saved Final Report Discarded Successfully!");
-//    }
-//
-//    public void DiscardReviewedFinalReport() throws InterruptedException {
-//        ReviewedReportRow3dots.click();
-//        Thread.sleep(1000);
-//        checkDiscardOptionAndProceed();
-//    }
-//
-//    public void DiscardReviewedPrelimReport() throws InterruptedException {
-//        PrelimReportRow3dots.click();
-//        Thread.sleep(1000);
-//        checkDiscardOptionAndProceed();
-//    }
-//
-//    public void DiscardReviewedAddendumReport() throws InterruptedException {
-//        AddendumReportRow3dots.click();
-//        Thread.sleep(1000);
-//        checkDiscardOptionAndProceed();
-//    }
+    public void validateStudyTitleinCalciumReportForm() throws InterruptedException {
+        if(StudyTitle.isEnabled()){
+            System.out.println("Able to Edit Study Title!");
+        }else{
+            System.out.println("Unable to Edit Study Title!");
+        }
+        Thread.sleep(1000);
+    }
 
+    public void validateClinicalIndicationInCalciumReportForm(String expectedClinicalHistory) throws InterruptedException {
+        String actualClinicalHistory = ClinicalIndication.getAttribute("value");
+        System.out.println("Opened Clinical Indication: " + actualClinicalHistory);
+
+        // Check if default value matches expected
+        if (actualClinicalHistory.equalsIgnoreCase(expectedClinicalHistory)) {
+            System.out.println("Default Clinical Indication is displayed.");
+        } else {
+            System.out.println("Default Clinical Indication is NOT displayed. Actual value: " + actualClinicalHistory);
+        }
+         Thread.sleep(1000);
+        // Check if field is editable
+        if (ClinicalIndication.isEnabled()) {
+            System.out.println("Clinical Indication field is editable.");
+            ClinicalIndication.clear();
+            ClinicalIndication.sendKeys("Fever");
+        } else {
+            System.out.println("Clinical Indication field is NOT editable.");
+        }
+    }
+
+    public void validateProtocolinCalciumReportForm() throws InterruptedException {
+        if(ProtocolInCalciumReport.isEnabled()){
+            System.out.println("Able to Edit Protocol!");
+        }else{
+            System.out.println("Unable to Edit Protocol!");
+        }
+        Thread.sleep(1000);
+    }
+
+
+    public void validateStudyDesc() throws InterruptedException {
+        String OpenedStudyDesc = StudyDescInReportingScreen.getText().trim();
+        System.out.println("Opened Study Description :" + OpenedStudyDesc);
+        if(OpenedStudyDesc.equals("Coronary CTA(Adult)") || OpenedStudyDesc.equals("Ca Score(Adult)")){
+            System.out.println("Study Description Match found!");
+            CalciumReportLink.click();
+            System.out.println("Calcium report form is loaded!");
+        }else{
+            System.out.println("Study Match Not found!");
+        }
+        Thread.sleep(1000);
+    }
+
+    public String SendReportEditRequest() throws InterruptedException {
+      //  String ActiveTabPatient = ActiveTab.getText();
+        String repName = reportNameInRequestPopup.getText();
+        System.out.println(repName);
+        Thread.sleep(1000);
+        RadiologistDropdownInRequestPopup.click();
+        Thread.sleep(1000);
+        RadiologistDrVijay.click();
+        Thread.sleep(1000);
+        RequestReason.sendKeys("Need to Modify the report");
+        Thread.sleep(1000);
+        SubmitButtonforReportRequest.click();
+        return repName;
+
+    }
+
+
+
+    public void checkEditButtonInReporting() throws InterruptedException {
+        List<WebElement> edits = driver.findElements(By.xpath("//button/span[contains(text(),'Edit')]"));
+        if (edits.size() > 0 && edits.get(0).isDisplayed()) {
+            System.out.println("Edit button is visible!");
+        } else {
+            System.out.println("Edit button is Not visible! as Expected.");
+        }
+    }
 
 
     public void DiscardReport(WebElement threeDotsElement, boolean confirmDiscard) throws InterruptedException {
-//        try{
-//            threeDotsElement.click();
-//            Thread.sleep(1000);
-//
-//            if(checkDiscardOptionAndProceed()){
-//                if(confirmDiscard) {
-//                    Thread.sleep(1000);
-//                    YesforDiscard.click();
-//                    System.out.println("Report discarded successfuly!");
-//                }
-//                else {
-//                    System.out.println("Discard option was not available.");
-//                }
-//            }
-//        } catch (NoSuchElementException e){
-//            System.out.println("3-dots menu not found.");
-//        } catch (Exception e){
-//            System.out.println("Error while discarding report: " + e.getMessage());
-//        }
 
         try{
             threeDotsElement.click();
             Thread.sleep(1000);
 
             if(DiscardButton != null && DiscardButton.isDisplayed() && DiscardButton.isEnabled()){
-                DiscardButton.click();
-                System.out.println("Discard option is clicked!");
-
                 if(confirmDiscard){
+                    DiscardButton.click();
+                    System.out.println("Discard option is clicked!");
                     Thread.sleep(1000);
                     YesforDiscard.click();
                     System.out.println("Report Discarded Successfully!");
-                }else{
-                    System.out.println("Discard clicked but Confirmation popup not displayed.");
-                    ActiveTab.click();
                 }
-
             }else{
-                System.out.println("Discard option is Not available. Menu is closed.");
-                threeDotsElement.sendKeys(Keys.ESCAPE);
+                if(!confirmDiscard){
+                    System.out.println("Discard option is Not available. Menu is closed.");
+                    threeDotsElement.click();
+                    Thread.sleep(1000);
+                }
+//                System.out.println("Discard option is Not available. Menu is closed.");
+//                threeDotsElement.sendKeys(Keys.ESCAPE);
             }
 
         }catch (NoSuchElementException e) {
@@ -197,6 +348,20 @@ public class ModularReportingElements {
         }
     }
 
+    public void RequestToEdit(WebElement threeDotsElement, boolean SendEditRequest ){
+        try{
+            threeDotsElement.click();
+            Thread.sleep(1000);
+               if(RequestToEditButton != null && RequestToEditButton.isDisplayed() && RequestToEditButton.isEnabled()){
+                   if(SendEditRequest){
+                       RequestToEditButton.click();
+                       System.out.println("Request To Edit option is clicked!");
+                   }
+               }
+            } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     public void addAddendumReport() throws InterruptedException {
@@ -254,8 +419,8 @@ public class ModularReportingElements {
 
     public void AddPrelimContent(){
         PrelimTitle.sendKeys("PRELIM");
-        PrelimFindings.sendKeys("Brainstem is normal. Cerebello-pontine angles are normal. Vermis and both cerebellar hemispheres are normal. Fourth ventricle is normal.");
-        PrelimImpression.sendKeys("No intracranial abnormality.");
+        PrelimFindings.sendKeys("Brhjhjainstem is normal. Cerebello-pontine angles are normal. Vermis and both cerebellar hemispheres are normal. Fourth ventricle is normal.");
+        PrelimImpression.sendKeys("Nojghj intracranial abnormality.");
 
     }
 
@@ -271,9 +436,10 @@ public class ModularReportingElements {
         System.out.println("New Final report form is Loaded!");
     }
 
-    public void verifyPatientTab(){
-        String ActiveTabPatent = ActiveTab.getText();
-        System.out.println("Active Tab Patient is : "+ ActiveTabPatent);
+    public String verifyPatientTab(){
+        String ActiveTabPatient = ActiveTab.getText();
+        System.out.println("Active Tab Patient is : "+ ActiveTabPatient);
+        return ActiveTabPatient;
     }
 
 
@@ -315,9 +481,11 @@ public class ModularReportingElements {
 
     public void saveReport() throws InterruptedException {
         //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         SaveButton.click();
+        Thread.sleep(1000);
         System.out.println("Clicked on Save Button");
+        Thread.sleep(3000);
         getReportStatus();
     }
 

@@ -26,6 +26,7 @@ public class Screenshot {
         }catch(Exception e){
             System.out.println("Screenshot error: "+ e.getMessage());
             return  null;
+
         }
     }
 
